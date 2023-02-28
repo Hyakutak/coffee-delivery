@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export type ItemBackground = 'yellow-dark' | 'yellow' | 'base-text' | 'purple';
+
+interface ColorBackground {
+    color: ItemBackground;
+}
+
 export const ContainerBanner = styled.div`
     display: flex;
     flex-direction: row;
@@ -26,7 +32,7 @@ export const ContainerBannerHeading = styled.div`
         font-weight: 800;
         font-size: 3rem;
         line-height: 3.875rem;
-        color: ${(proprs) => proprs.theme['base-title']};
+        color: ${(props) => props.theme['base-title']};
     }
 
     span {
@@ -41,36 +47,28 @@ export const ContainerBannerList = styled.div`
     display: flex;
     flex-direction: row;
     ul {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 14.4375rem 18.375rem;
         row-gap: 1.25rem;
+        column-gap: 2.5rem;
         list-style-type: none;
-        li {
-            line-height: 1.3rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 0.75rem;
-            svg {
-                width: 2rem;
-                height: 2rem;
-                padding: 0.5rem;
-                border-radius: 1000px;
-                color: ${(props) => props.theme['white']};
-            }
-            .cart {
-                background: ${(props) => props.theme['yellow-dark']};
-            }
-            .timer {
-                background: ${(props) => props.theme['yellow']};
-            }
-            .packge {
-                background: ${(props) => props.theme['base-text']};
-            }
-            .coffee {
-                background: ${(props) => props.theme['purple']};
-            }
-        }
     }
 `;
+
+export const ContainerBannerListItem  = styled.li<ColorBackground>`
+    line-height: 1.3rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    svg {
+        width: 2rem;
+        height: 2rem;
+        padding: 0.5rem;
+        border-radius: 1000px;
+        color: ${(props) => props.theme['white']};
+        ${props => {
+            return `background-color: ${props.theme[props.color]}`
+        }}
+    }
+`

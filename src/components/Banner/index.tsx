@@ -1,4 +1,4 @@
-import { ContainerBanner, ContainerBannerTexts, ContainerBannerHeading, ContainerBannerList } from "./styles";
+import { ContainerBanner, ContainerBannerTexts, ContainerBannerHeading, ContainerBannerList, ContainerBannerListItem} from "./styles";
 import BannerBackground from "../../assets/banner.svg";
 import { ShoppingCart, Timer, Package, Coffee } from "phosphor-react";
 
@@ -16,24 +16,22 @@ export function Banner() {
                 </ContainerBannerHeading>
                 <ContainerBannerList>
                     <ul>
-                        <li>
-                            <ShoppingCart size={16} className="cart" />
+                        <ContainerBannerListItem color={'yellow-dark'}>
+                            <ShoppingCart size={16}  />
                             Compra simples e segura
-                        </li>
-                        <li>
-                            <Timer size={16} className="timer" />
-                            Entrega rápida e rastreada
-                        </li>
-                    </ul>
-                    <ul>
-                        <li>
-                            <Package size={16} className="packge" />
+                        </ContainerBannerListItem>
+                        <ContainerBannerListItem color={'base-text'}>
+                            <Package size={16} />
                             Embalagem mantém o café intacto
-                        </li>
-                        <li>
-                            <Coffee size={16} className="coffee" />
+                        </ContainerBannerListItem>
+                        <ContainerBannerListItem color={'yellow'}>
+                            <Timer size={16} />
+                            Entrega rápida e rastreada
+                        </ContainerBannerListItem>
+                        <ContainerBannerListItem color={'purple'}>
+                            <Coffee size={16} />
                             O café chega fresquinho até você
-                        </li>
+                        </ContainerBannerListItem>
                     </ul>
                 </ContainerBannerList>
             </ContainerBannerTexts>
