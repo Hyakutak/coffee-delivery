@@ -1,3 +1,10 @@
+import { Banner } from "../components/Banner";
+import { ContainerHome } from "../components/Banner/styles";
+
 export function Home() {
-    return <h1>Home</h1>
+    return (
+        <ContainerHome>
+            <Banner />
+        </ContainerHome>
+    );
 }
