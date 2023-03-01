@@ -6,7 +6,7 @@ interface ColorBackground {
     color: ItemBackground;
 }
 
-export const ContainerBanner = styled.div`
+export const ContainerBanner = styled.article`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -15,7 +15,7 @@ export const ContainerBanner = styled.div`
     max-height: 41rem;
 `;
 
-export const ContainerBannerTexts = styled.div`
+export const ContainerBannerTexts = styled.section`
     display: flex;
     flex-direction: column;
     gap: 4.125rem;

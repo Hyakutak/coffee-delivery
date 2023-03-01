@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
     padding: 2rem 0;
 `;
 
-export const HeaderContainerActions = styled.div`
+export const HeaderContainerActions = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
