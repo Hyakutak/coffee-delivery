@@ -11,11 +11,11 @@ export function Header() {
             <img src={LogoCoffeeDelivery} alt="Logo Coffee Delivery" />
             <HeaderContainerActions>
                 <HeaderContainerActionsLocation>
-                    <MapPin size={22} />
+                    <MapPin size={22} weight="fill" />
                     <span>Porto Alegre, RS</span>
                 </HeaderContainerActionsLocation>
                 <HeaderContainerActionsCart>
-                    <ShoppingCart size={22} />
+                    <ShoppingCart size={22} weight="fill" />
                 </HeaderContainerActionsCart>
             </HeaderContainerActions>
         </HeaderContainer>
