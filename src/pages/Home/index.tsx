@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Banner } from "../components/Banner";
+import { Banner } from "../../components/Banner";
 
 export function Home() {
     const [products, setProducts] = useState([]);
