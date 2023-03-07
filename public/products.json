@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+            "products": [
+                {
+                    "name": "teste",
+                    "price": 5
+                }
+            ]
+        }
+    ]
+}
