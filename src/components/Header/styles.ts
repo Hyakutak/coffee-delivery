@@ -12,9 +12,20 @@ export const HeaderContainerActions = styled.nav`
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
+
+    a {
+        padding: 0.5rem;
+        border-radius: 6px;
+        max-height: 2.375rem;
+        background: ${(props) => props.theme['yellow-light']};
+
+        svg {
+            color: ${(props) => props.theme['yellow-dark']};
+        }
+    }
 `;
 
-export const HeaderContainerActionsLocation = styled.div`
+export const HeaderContainerActionsLocation = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,16 +44,5 @@ export const HeaderContainerActionsLocation = styled.div`
         font-size: 0.875rem;
         line-height: 1.125rem;
         color: ${(props) => props.theme['purple-dark']};
-    }
-`;
-
-export const HeaderContainerActionsCart = styled.div`
-    padding: 0.5rem;
-    border-radius: 6px;
-    max-height: 2.375rem;
-    background: ${(props) => props.theme['yellow-light']};
-
-    svg {
-        color: ${(props) => props.theme['yellow-dark']};
     }
 `;
