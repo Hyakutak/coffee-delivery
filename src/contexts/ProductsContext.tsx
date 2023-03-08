@@ -4,7 +4,7 @@ interface Product {
     name: string,
     description: string,
     price: number,
-    tags: {
+    tags?: {
         tag1: string,
         tag2: string,
         tag3: string
