@@ -1,5 +1,5 @@
 import { ContainerBanner, ContainerBannerTexts, ContainerBannerHeading, ContainerBannerList, ContainerBannerListItem} from "./styles";
-import BannerBackground from "../../assets/banner.svg";
+import BannerBackground from "../../../../assets/banner.svg";
 import { ShoppingCart, Timer, Package, Coffee } from "phosphor-react";
 
 export function Banner() {
