@@ -3,6 +3,7 @@ import { createContext } from "react";
 interface Product {
     name: string,
     description: string,
+    imame: string,
     price: number,
     tags?: {
         tag1: string,

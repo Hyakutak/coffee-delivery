@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export type ItemBackground = 'yellow-dark' | 'yellow' | 'base-text' | 'purple';
 
