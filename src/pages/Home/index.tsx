@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Banner } from "./components/Banner";
 import { Card } from './components/card';
 import { IProduct } from '../../interfaces/IProduct';
+import { GridProducts } from './style';
 
 
 export function Home() {
@@ -24,9 +25,9 @@ export function Home() {
         <main>
             <Banner />
             <article>
-                <section>
+                <GridProducts>
                     { listProduct }
-                </section>
+                </GridProducts>
             </article>
         </main>
     );
