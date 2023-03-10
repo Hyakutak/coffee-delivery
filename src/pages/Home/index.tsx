@@ -1,21 +1,11 @@
 import { useState, useEffect } from "react";
 import { Banner } from "./components/Banner";
 import { Card } from './components/card';
+import { IProduct } from '../../interfaces/IProduct';
 
-interface Product {
-    name: string,
-    description: string,
-    imame: string,
-    price: number,
-    tags?: {
-        tag1: string,
-        tag2: string,
-        tag3: string
-    }
-}
 
 export function Home() {
-    const [listProducts, setListProducts] = useState<Product>();
+    const [listProducts, setListProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
         fetch('./products.json', {
@@ -26,11 +16,17 @@ export function Home() {
           .then(res => setListProducts(res.data))
     }, []);
 
+    const listProduct = listProducts.map((product) => {
+        return <Card name={product.name} image={product.image} price={product.price} description={product.description} type={product.type} />
+    })
+
     return (
         <main>
             <Banner />
             <article>
-                
+                <section>
+                    { listProduct }
+                </section>
             </article>
         </main>
     );
