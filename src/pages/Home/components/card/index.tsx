@@ -1,5 +1,5 @@
 import { IProduct } from '../../../../interfaces/IProduct';
-import { CardProduct, CardProductTypes } from './styles';
+import { CardProduct, CardProductTypes, CardProductText } from './styles';
 
 export function Card({ name, image, description, price, types }:IProduct) {
 
@@ -13,6 +13,10 @@ export function Card({ name, image, description, price, types }:IProduct) {
             <CardProductTypes>
                 {typesProduct}
             </CardProductTypes>
+            <CardProductText>
+                <h2>{ name }</h2>
+                <span>{ description }</span>
+            </CardProductText>
         </CardProduct>
     )
 }
