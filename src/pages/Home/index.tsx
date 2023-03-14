@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Banner } from "./components/Banner";
 import { Card } from './components/card';
 import { IProduct } from '../../interfaces/IProduct';
-import { GridProducts } from './style';
+import { GridProducts, HeaderProducts, ContainerProducts } from './style';
 
 
 export function Home() {
@@ -18,17 +18,20 @@ export function Home() {
     }, []);
 
     const listProduct = listProducts.map((product) => {
-        return <Card name={product.name} image={product.image} price={product.price} description={product.description} type={product.type} />
+        return <Card name={product.name} image={product.image} price={product.price} description={product.description} types={product.types} />
     })
 
     return (
         <main>
             <Banner />
-            <article>
+            <ContainerProducts>
+                <HeaderProducts>
+                    <h3>Nossos cafés</h3>
+                </HeaderProducts>
                 <GridProducts>
                     { listProduct }
                 </GridProducts>
-            </article>
+            </ContainerProducts>
         </main>
     );
 }

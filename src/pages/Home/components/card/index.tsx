@@ -1,9 +1,18 @@
 import { IProduct } from '../../../../interfaces/IProduct';
+import { CardProduct, CardProductTypes } from './styles';
 
-export function Card({ name, image, description, price, type }:IProduct) {
+export function Card({ name, image, description, price, types }:IProduct) {
+
+    const typesProduct = types.map((type) => {
+        return <span>{type}</span>
+    });
+
     return (
-        <div>
+        <CardProduct>
             <img src={image} />
-        </div>
+            <CardProductTypes>
+                {typesProduct}
+            </CardProductTypes>
+        </CardProduct>
     )
 }
