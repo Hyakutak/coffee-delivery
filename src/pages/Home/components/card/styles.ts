@@ -8,7 +8,6 @@ export const CardProduct = styled.div`
     align-items: center;
     border-radius: 6px 36px;
     background: ${(props) => props.theme['base-card']};
-    padding: 1.25rem 1.5rem;
     padding-top: 7rem;
     position: relative;
 
@@ -54,5 +53,66 @@ export const CardProductText = styled.section`
         color: ${(props) => props.theme['base-label']};
         font-size: 0.875rem;
         line-height: 1.125rem;
+        padding: 0 1.25rem;
+    }
+`;
+
+export const CardProductBuy = styled.section`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1.5rem;
+    gap: 1.4375rem;
+    p {
+        line-height: 1.1375rem;
+        font-size: 0.875rem;
+        span {
+            font-weight: 800;
+            font-family: 'Baloo 2';
+            font-size: 1.5rem;
+            line-height: 1.95rem;
+        }
+    }
+`;``
+
+export const CardProductBuyActions = styled.section`
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    
+    section {
+        padding: 0.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.25rem;
+        max-height: 2.375rem;
+        max-width: 4.5rem;
+        background: ${(props) => props.theme['base-button']};
+        border-radius: 6px;
+        svg {
+            background: transparent;
+            color: ${(props) => props.theme['purple']};
+            padding: 0;
+        }
+        span {
+            color: ${(props) => props.theme['base-title']};
+            line-height: 1.3125rem;
+            width: 1.25rem;
+            text-align: center;
+        }
+    }
+
+    aside {
+        background: ${(props) => props.theme['purple-dark']};
+        width: 2.375rem;
+        height: 2.375rem;
+        padding: 0.5rem;
+        border-radius: 6px;
+        svg {
+            color: ${(props) => props.theme['white']};
+        }
     }
 `;
