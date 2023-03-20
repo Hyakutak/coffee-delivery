@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import BannerBackground from '../../../../assets/banner-background.svg';
 
 export type ItemBackground = 'yellow-dark' | 'yellow' | 'base-text' | 'purple';
 
@@ -13,6 +14,18 @@ export const ContainerBanner = styled.article`
     gap: 3.5rem;
     padding: 5.75rem 0;
     max-height: 41rem;
+    &:after {
+        content: '';
+        background-image: url(${BannerBackground});
+        background-position: center;
+        position: absolute;
+        max-height: 34rem;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 6.75rem;
+        filter: blur(10px);
+    }
 `;
 
 export const ContainerBannerTexts = styled.section`
