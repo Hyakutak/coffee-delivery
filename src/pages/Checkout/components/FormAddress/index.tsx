@@ -1,4 +1,4 @@
-import { ContainerForm } from './styles';
+import { ContainerForm, InputContainer } from './styles';
 import { MapPinLine } from 'phosphor-react';
 
 export function FormAddress() {
@@ -12,13 +12,36 @@ export function FormAddress() {
                 </div>
             </header>
             <form>
-                <input type="text" placeholder='CEP' />
-                <input type="text" placeholder='Rua' />
-                <input type="number" placeholder='Número' />
-                <input type="text" placeholder='Complemento' />
-                <input type="text" placeholder='Bairro' />
-                <input type="text" placeholder='Cidade' />
-                <input type="text" placeholder='UF' />
+                <InputContainer>
+                    <input 
+                        style={{ maxWidth: "min(200px, 100%)" }} 
+                        type="text" 
+                        placeholder='CEP' />
+                </InputContainer>
+                <InputContainer>
+                    <input type="text" placeholder='Rua' />
+                </InputContainer>
+                <InputContainer>
+                    <input 
+                        style={{ maxWidth: "min(200px, 100%)" }} 
+                        type="number" 
+                        placeholder='Número' />
+                    <input type="text" placeholder='Complemento' />
+                </InputContainer>
+                <InputContainer>
+                    <input 
+                        style={{ maxWidth: "min(200px, 100%)" }} 
+                        type="text" 
+                        placeholder='Bairro' />
+                    <input 
+                        style={{ maxWidth: "min(276px, 100%)" }} 
+                        type="text" 
+                        placeholder='Cidade' />
+                    <input 
+                        style={{ maxWidth: "min(60px, 100%)" }} 
+                        type="text" 
+                        placeholder='UF' />
+                </InputContainer>
             </form>
         </ContainerForm>
     );

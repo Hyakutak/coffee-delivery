@@ -37,55 +37,26 @@ export const ContainerForm = styled.section`
 
     form {
         width: 100%;
-        display: grid;
-        grid-template-areas: 'cep cep cep cep cep cep cep' 
-            'rua rua rua rua rua rua rua' 
-            'numero numero complemento complemento complemento complemento complemento' 
-            'bairro bairro cidade cidade cidade cidade uf';
-        row-gap: 1rem;
-        column-gap: 0.75rem;
-
-        input {
-            background: ${(props) => props.theme['base-input']};
-            border: 1px solid ${(props) => props.theme['base-button']};
-            border-radius: 4px;
-            height: 2.625rem;
-            padding: 0.75rem;
-            ::placeholder {
-                color: ${(props) => props.theme['base-label']};
-                line-height: 1.125rem;
-            }
-        }
-
-        input:nth-child(1) {
-            grid-area: cep;
-            max-width: 12.5rem;
-        }
-        input:nth-child(2) {
-            grid-area: rua;
-            max-width: 100%;
-        }
-        input:nth-child(3) {
-            grid-area: numero;
-            max-width: 12.5rem;
-        }
-        input:nth-child(4) {
-            grid-area: complemento;
-            width: 21.75rem;
-
-        }
-        input:nth-child(5) {
-            grid-area: bairro;
-            max-width: 12.5rem;
-        }
-        input:nth-child(6) {
-            grid-area: cidade;
-            width: 17.25rem;
-        }
-        input:nth-child(7) {
-            grid-area: uf;
-            max-width: 3.75rem;
-        }
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
     }
 
+`;
+
+export const InputContainer = styled.div`
+    display: flex;
+    gap: 1rem;
+    input {
+        background: ${(props) => props.theme['base-input']};
+        border: 1px solid ${(props) => props.theme['base-button']};
+        border-radius: 4px;
+        height: 2.625rem;
+        width: 100%;
+        padding: 0.75rem;
+        ::placeholder {
+            color: ${(props) => props.theme['base-label']};
+            line-height: 1.125rem;
+        }
+    }
 `;
