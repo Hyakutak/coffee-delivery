@@ -45,6 +45,18 @@ export const ContainerForm = styled.section`
         row-gap: 1rem;
         column-gap: 0.75rem;
 
+        input {
+            background: ${(props) => props.theme['base-input']};
+            border: 1px solid ${(props) => props.theme['base-button']};
+            border-radius: 4px;
+            height: 2.625rem;
+            padding: 0.75rem;
+            ::placeholder {
+                color: ${(props) => props.theme['base-label']};
+                line-height: 1.125rem;
+            }
+        }
+
         input:nth-child(1) {
             grid-area: cep;
             max-width: 12.5rem;
@@ -59,7 +71,8 @@ export const ContainerForm = styled.section`
         }
         input:nth-child(4) {
             grid-area: complemento;
-            max-width: 100%;
+            width: 21.75rem;
+
         }
         input:nth-child(5) {
             grid-area: bairro;
@@ -67,7 +80,7 @@ export const ContainerForm = styled.section`
         }
         input:nth-child(6) {
             grid-area: cidade;
-            max-width: 100%;
+            width: 17.25rem;
         }
         input:nth-child(7) {
             grid-area: uf;
