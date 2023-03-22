@@ -20,7 +20,7 @@ export const CardContainer = styled.div`
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            padding: 0 !important;
+            padding: 0;
             gap: 0.5rem;
             h2 {
                 color: ${(props) => props.theme['base-subtitle']};

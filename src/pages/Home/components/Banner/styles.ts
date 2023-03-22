@@ -14,6 +14,9 @@ export const ContainerBanner = styled.article`
     gap: 3.5rem;
     padding: 5.75rem 0;
     max-height: 41rem;
+    img {
+        z-index: 2;
+    }
     &:after {
         content: '';
         background-image: url(${BannerBackground});
@@ -25,6 +28,7 @@ export const ContainerBanner = styled.article`
         left: 0;
         top: 6.75rem;
         filter: blur(10px);
+        z-index: 1;
     }
 `;
 

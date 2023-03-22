@@ -28,19 +28,20 @@ export const ContainerCheckout = styled.main`
         flex-direction: column;
         flex-grow: 1;
         gap: 0.75rem;
-        section {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 2.5rem;
-            border-radius: 6px 44px;
-            gap: 1.5rem;
-            background: ${(props) => props.theme['base-card']};
-            hr {
-                width: 100%;
-                border: 1px solid ${(props) => props.theme['base-button']};
-            }
-        }
+    }
+`;
+
+export const ContentAside = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2.5rem;
+    border-radius: 6px 44px;
+    gap: 1.5rem;
+    background: ${(props) => props.theme['base-card']};
+    hr {
+        width: 100%;
+        border: 1px solid ${(props) => props.theme['base-button']};
     }
 `;
 

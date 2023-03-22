@@ -1,6 +1,7 @@
+import { Form } from "react-router-dom";
 import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
-import { ContainerCheckout, ButtonBuy, PriceContainer, TotalPrice } from './styles';
+import { ContainerCheckout, ContentAside, ButtonBuy, PriceContainer, TotalPrice } from './styles';
 import { Card } from './components/Card';
 
 export function Checkout() {
@@ -13,7 +14,7 @@ export function Checkout() {
             </article>
             <aside>
                 <h3>Cafés selecionados</h3>
-                <section>
+                <ContentAside>
                     <Card />
                     <hr />
                     <Card />
@@ -32,10 +33,12 @@ export function Checkout() {
                             <h5>R$ 33,20</h5>
                         </TotalPrice>
                     </PriceContainer>
-                    <ButtonBuy>
-                        confirmar pedido
-                    </ButtonBuy>
-                </section>
+                    <Form action="/checkout/success">
+                        <ButtonBuy type="submit">
+                            confirmar pedido
+                        </ButtonBuy>
+                    </Form>
+                </ContentAside>
             </aside>
         </ContainerCheckout>
     );

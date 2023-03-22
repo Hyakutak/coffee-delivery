@@ -17,19 +17,19 @@ export function Banner() {
                 <ContainerBannerList>
                     <ul>
                         <ContainerBannerListItem color={'yellow-dark'}>
-                            <ShoppingCart size={16}  />
+                            <ShoppingCart size={16} weight="fill" />
                             Compra simples e segura
                         </ContainerBannerListItem>
                         <ContainerBannerListItem color={'base-text'}>
-                            <Package size={16} />
+                            <Package size={16} weight="fill" />
                             Embalagem mantém o café intacto
                         </ContainerBannerListItem>
                         <ContainerBannerListItem color={'yellow'}>
-                            <Timer size={16} />
+                            <Timer size={16} weight="fill" />
                             Entrega rápida e rastreada
                         </ContainerBannerListItem>
                         <ContainerBannerListItem color={'purple'}>
-                            <Coffee size={16} />
+                            <Coffee size={16} weight="fill" />
                             O café chega fresquinho até você
                         </ContainerBannerListItem>
                     </ul>
