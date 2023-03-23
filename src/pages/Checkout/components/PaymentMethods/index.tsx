@@ -2,6 +2,11 @@ import { PaymentContainer, PaymentMethod } from './styles';
 import { CurrencyDollar, CreditCard, Money, Bank } from 'phosphor-react';
 
 export function PaymentMethods() {
+
+    function handleClickActiveMethod(method) {
+        console.log(method.target);
+    }
+
     return (
         <PaymentContainer>
             <header>
@@ -12,7 +17,7 @@ export function PaymentMethods() {
                 </div>
             </header>
             <section>
-                <PaymentMethod>
+                <PaymentMethod onClick={handleClickActiveMethod}>
                     <CreditCard size={16} />
                     <p>Cartão de crédito</p>
                 </PaymentMethod>

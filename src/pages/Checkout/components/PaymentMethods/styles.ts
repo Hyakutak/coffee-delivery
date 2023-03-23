@@ -56,6 +56,14 @@ export const PaymentMethod = styled.button`
     padding: 1rem;
     gap: 0.75rem;
     width: 33%;
+    cursor: pointer;
+
+    &:hover {
+        background: ${(props) => props.theme['base-hover']};
+        p {
+            color: ${(props) => props.theme['base-subtitle']};    
+        }
+    }
 
     svg {
         color: ${(props) =>props.theme['purple']};
@@ -63,7 +71,7 @@ export const PaymentMethod = styled.button`
     p {
         color: ${(props) => props.theme['base-text']};
         text-transform: uppercase;
-        font-family: 'Roboto',sans-serif;
+        font-family: 'Roboto', sans-serif;
         font-weight: 400;
         font-size: 0.75rem;
         line-height: 1.1875rem;

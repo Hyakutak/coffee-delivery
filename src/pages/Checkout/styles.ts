@@ -61,6 +61,9 @@ export const ButtonBuy = styled.button`
     font-size: 0.875rem;
     line-height: 1.375rem;
     cursor: pointer;
+    &:hover {
+        background: ${(props) => props.theme['yellow-dark']};
+    }
 `;
 
 export const PriceContainer = styled.div`

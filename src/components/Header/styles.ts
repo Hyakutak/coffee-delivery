@@ -30,6 +30,7 @@ export const HeaderContainerAction = styled.section<ColorsActions>`
     border-radius: 6px;
     max-height: 2.375rem;
     background: ${(props) => props.theme[props.backgroundVariant]};
+    position: relative;
 
     svg {
         color: ${(props) => props.theme[props.variantIcon]};
@@ -45,4 +46,22 @@ export const HeaderContainerAction = styled.section<ColorsActions>`
         display: flex;
         align-items: center;
     }
+`;
+
+export const Counter = styled.div`
+    color: ${(props) => props.theme['white']};
+    background: ${(props) => props.theme['yellow-dark']};
+    border-radius: 1000px;
+    width: 1.25rem;
+    height: 1.25rem;
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: -0.06em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -8.35px;
+    top: -8px;
 `;

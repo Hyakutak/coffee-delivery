@@ -53,6 +53,10 @@ export const Actions = styled.div`
         gap: 0.25rem;
         svg {
             color: ${(props) => props.theme['purple']};
+            cursor: pointer;
+            &:hover {
+                color: ${(props) => props.theme['purple-dark']};
+            }
         }
         span {
             width: fit-content;
@@ -72,6 +76,10 @@ export const ActionQuantidy = styled.div`
 
 export const ActionRemove = styled.div`
     width: 5.6875rem;
+    cursor: pointer;
+    &:hover {
+        background: ${(props) => props.theme['base-hover']};
+    }
     span {
         font-weight: 400;
         font-size: 0.75rem;

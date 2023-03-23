@@ -96,6 +96,10 @@ export const CardProductBuyActions = styled.section`
             background: transparent;
             color: ${(props) => props.theme['purple']};
             padding: 0;
+            cursor: pointer;
+            &:hover {
+                color: ${(props) => props.theme['purple-dark']};
+            }
         }
         span {
             color: ${(props) => props.theme['base-title']};
@@ -111,6 +115,11 @@ export const CardProductBuyActions = styled.section`
         height: 2.375rem;
         padding: 0.5rem;
         border-radius: 6px;
+        cursor: pointer;
+
+        &:hover {
+            background: ${(props) => props.theme['purple']};
+        }
         svg {
             color: ${(props) => props.theme['white']};
         }

@@ -2,7 +2,6 @@ import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
 import { ContainerCheckout, ContentAside, ButtonBuy, PriceContainer, TotalPrice } from './styles';
 import { Card } from './components/Card';
-import { useForm } from 'react-hook-form';
 
 export function Checkout() {
     return (
