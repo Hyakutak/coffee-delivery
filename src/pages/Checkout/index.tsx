@@ -1,8 +1,8 @@
-import { Form } from "react-router-dom";
 import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
 import { ContainerCheckout, ContentAside, ButtonBuy, PriceContainer, TotalPrice } from './styles';
 import { Card } from './components/Card';
+import { useForm } from 'react-hook-form';
 
 export function Checkout() {
     return (
@@ -33,11 +33,11 @@ export function Checkout() {
                             <h5>R$ 33,20</h5>
                         </TotalPrice>
                     </PriceContainer>
-                    <Form action="/checkout/success">
+                    <form action="/checkout/success">
                         <ButtonBuy type="submit">
                             confirmar pedido
                         </ButtonBuy>
-                    </Form>
+                    </form>
                 </ContentAside>
             </aside>
         </ContainerCheckout>

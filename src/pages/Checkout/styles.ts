@@ -43,6 +43,9 @@ export const ContentAside = styled.section`
         width: 100%;
         border: 1px solid ${(props) => props.theme['base-button']};
     }
+    form {
+        width: 100%;
+    }
 `;
 
 export const ButtonBuy = styled.button`
@@ -57,6 +60,7 @@ export const ButtonBuy = styled.button`
     font-weight: 700;
     font-size: 0.875rem;
     line-height: 1.375rem;
+    cursor: pointer;
 `;
 
 export const PriceContainer = styled.div`
