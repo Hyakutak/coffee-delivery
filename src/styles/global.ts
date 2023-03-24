@@ -18,4 +18,15 @@ export const GlobalStyle = createGlobalStyle`
     font-weight: 400;
     font-size: 1rem;
   }
+
+  input {
+    &:focus-visible {
+      font-family: 'Roboto';
+      font-weight: 400;
+      font-size: 0.875rem;
+      line-height: 1.125rem;
+      border-color: ${(props) => props.theme['yellow-dark']};
+      outline: none;
+    }
+  }
 `;

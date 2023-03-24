@@ -1,11 +1,8 @@
+import { ChangeEvent } from 'react';
 import { PaymentContainer, PaymentMethod } from './styles';
 import { CurrencyDollar, CreditCard, Money, Bank } from 'phosphor-react';
 
 export function PaymentMethods() {
-
-    function handleClickActiveMethod(method) {
-        console.log(method.target);
-    }
 
     return (
         <PaymentContainer>
@@ -17,7 +14,7 @@ export function PaymentMethods() {
                 </div>
             </header>
             <section>
-                <PaymentMethod onClick={handleClickActiveMethod}>
+                <PaymentMethod disabled={true}>
                     <CreditCard size={16} />
                     <p>Cartão de crédito</p>
                 </PaymentMethod>

@@ -44,6 +44,10 @@ export const PaymentContainer = styled.section`
         align-items: center;
         gap: 0.75rem;
         width: 100%;
+        button[disabled] {
+            background: ${(props) => props.theme['purple-light']};
+            border: 1px solid ${(props) => props.theme['purple-dark']};
+        }
     }
 `;
 
