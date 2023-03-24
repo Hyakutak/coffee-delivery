@@ -1,4 +1,3 @@
-import { ChangeEvent } from 'react';
 import { PaymentContainer, PaymentMethod } from './styles';
 import { CurrencyDollar, CreditCard, Money, Bank } from 'phosphor-react';
 
