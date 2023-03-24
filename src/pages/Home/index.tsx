@@ -8,7 +8,7 @@ import { IProduct } from '../../interfaces/IProduct';
 export function Home() {
     const { listProducts } = useContext(ProductsContext);
     
-    const productsCards = listProducts ? listProducts.map((product: IProduct) => (<Card {...product}/>)) : <></>
+    const productsCards = listProducts ? listProducts.map((product: IProduct) => (<Card key={product.id} {...product}/>)) : <></>
 
     return (
         <main>
