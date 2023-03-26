@@ -1,5 +1,6 @@
-import { CardContainer, Actions, ActionQuantidy, ActionRemove } from './styles';
-import { Plus, Minus, Trash } from "phosphor-react";
+import { CardContainer, Actions, ActionRemove } from './styles';
+import { Trash } from "phosphor-react";
+import { ActionsQuantity } from '../../../../components/ActionsQuantity';
 
 export function Card() {
     return (
@@ -9,11 +10,7 @@ export function Card() {
                 <section>
                     <h2>Expresso Tradicional</h2>
                     <Actions>
-                        <ActionQuantidy>
-                            <Minus size={14} />
-                            <span>1</span>
-                            <Plus size={14} />
-                        </ActionQuantidy>
+                        <ActionsQuantity />
                         <ActionRemove>
                             <Trash size={16} />
                             <span>Remover</span>

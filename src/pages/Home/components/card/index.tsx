@@ -1,40 +1,52 @@
+import { useState, useContext } from 'react';
 import { IProduct } from '../../../../interfaces/IProduct';
 import { CardProduct, CardProductTypes, CardProductText, CardProductBuy, CardProductBuyActions } from './styles';
-import { ShoppingCartSimple, Plus, Minus } from "phosphor-react";
+import { ShoppingCartSimple } from "phosphor-react";
+import { ActionsQuantity } from '../../../../components/ActionsQuantity';
+import { ProductsContext } from '../../../../contexts/ProductsContext';
 
+interface IProductCard {
+    product: IProduct;
+}
 
-export function Card({ name, image, description, price, types }:IProduct) {
+export function Card({product} :IProductCard) {
+    const [itemAmount, setItemAmount] = useState(1);
+    const { handleAddProductToCart } = useContext(ProductsContext);
 
-    const typesProduct = types.map((type) => {
+    const typesProduct = product.types.map((type) => {
         return <span>{type}</span>
     });
 
-    const currencyPrice = price.toLocaleString('pt-BR', {
+    const currencyPrice = product.price.toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     });
 
+    const sendProductToCart = () => {
+		const payload = {
+			...product
+		};
+
+		handleAddProductToCart(payload);
+	};
+
     return (
         <CardProduct>
-            <img src={image} />
+            <img src={product.image} />
             <CardProductTypes>
                 {typesProduct}
             </CardProductTypes>
             <CardProductText>
-                <h2>{ name }</h2>
-                <span>{ description }</span>
+                <h2>{ product.name }</h2>
+                <span>{ product.description }</span>
             </CardProductText>
             <CardProductBuy>
                 <p>R$ <span>{currencyPrice}</span></p>
                 <CardProductBuyActions>
-                    <section>
-                        <Minus size={14} />
-                        <span>1</span>
-                        <Plus size={14} />
-                    </section>
-                    <aside>
+                    <ActionsQuantity />
+                    <button onClick={()=> {sendProductToCart}}>
                         <ShoppingCartSimple size={22} weight="fill" />
-                    </aside>
+                    </button>
                 </CardProductBuyActions>
             </CardProductBuy>
         </CardProduct>

@@ -1,9 +1,13 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
+import { createContext, ReactNode, useState, useEffect, useReducer } from "react";
 import { IProduct } from '../interfaces/IProduct';
 import Api from '../services/Api';
+import { CartReducer, IProductsInCart } from "../reducers/reducer";
+import { addNewProductToCart } from "../reducers/actions";
 
 interface ProductsContextType {
-    listProducts?: IProduct[]
+    products: IProduct[];
+        listProducts?: IProduct[];
+        handleAddProductToCart: (product: IProduct) => void;
 }
 
 interface ProductsContextProviderProps {
@@ -13,6 +17,9 @@ interface ProductsContextProviderProps {
 export const ProductsContext = createContext({} as ProductsContextType);
 
 export function ProductsContextProvider({ children }: ProductsContextProviderProps) {
+    const [cartState, dispatch] = useReducer(
+		CartReducer,
+    { products: [] } as IProductsInCart,);
     const [listProducts, setListProducts] = useState<IProduct[]>([]);
 
     useEffect(() => {
@@ -24,8 +31,12 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
           });
     }, []);
 
+    function handleAddProductToCart(product: IProduct) {
+        dispatch(addNewProductToCart(product));
+    }
+
     return (
-        <ProductsContext.Provider value={{ listProducts }}>
+        <ProductsContext.Provider value={{ listProducts, handleAddProductToCart }}>
             { children }
         </ProductsContext.Provider>
     );

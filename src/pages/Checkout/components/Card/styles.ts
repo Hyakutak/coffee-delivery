@@ -64,16 +64,6 @@ export const Actions = styled.div`
     }
 `;
 
-export const ActionQuantidy = styled.div`
-    width: 4.5rem;
-    span {
-        font-weight: 400;
-        font-size: 1rem;
-        line-height: 1.3125rem;
-        color: ${(props) => props.theme['base-title']};
-    }
-`;
-
 export const ActionRemove = styled.div`
     width: 5.6875rem;
     cursor: pointer;
