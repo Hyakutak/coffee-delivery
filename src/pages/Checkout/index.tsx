@@ -1,9 +1,23 @@
+import { useContext } from 'react';
 import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
 import { ContainerCheckout, ContentAside, ButtonBuy, PriceContainer, TotalPrice } from './styles';
 import { Card } from './components/Card';
+import { NewProductData, ProductsContext } from '../../contexts/ProductsContext';
 
 export function Checkout() {
+    const { products } = useContext(ProductsContext);
+
+    const totalProducts = products.reduce((value, product) => value + (product.price * product.amount), 0);
+
+    const freight = 3.30;
+
+    const totalPriceProducts = products.reduce((value, product) => value + (product.price * product.amount) + freight, 0);
+
+    const ProductsToCart = products ? products.map((product) => 
+        (<Card key={product.id} {...product} />)) 
+        : <></>
+    
     return (
         <ContainerCheckout>
             <article>
@@ -14,22 +28,19 @@ export function Checkout() {
             <aside>
                 <h3>Cafés selecionados</h3>
                 <ContentAside>
-                    <Card />
-                    <hr />
-                    <Card />
-                    <hr />
+                    { ProductsToCart }
                     <PriceContainer>
                         <div>
                             <span>Total de itens</span>
-                            <span>R$ 29,70</span>
+                            <span>R$ {totalProducts.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</span>
                         </div>
                         <div>
                             <span>Entrega</span>
-                            <span>R$ 3,50</span>
+                            <span>R$ {freight.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</span>
                         </div>
                         <TotalPrice>
                             <h5>Total</h5>
-                            <h5>R$ 33,20</h5>
+                            <h5>R$ {totalPriceProducts.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</h5>
                         </TotalPrice>
                     </PriceContainer>
                     <form action="/checkout/success">

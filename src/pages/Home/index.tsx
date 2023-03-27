@@ -1,12 +1,21 @@
-import { useContext } from "react";
-import { ProductsContext } from "../../contexts/ProductsContext";
+import { useState, useEffect } from "react";
+import Api from '../../services/Api';
 import { Banner } from "./components/Banner";
 import { Card } from './components/card';
 import { GridProducts, HeaderProducts, ContainerProducts } from './style';
 import { IProduct } from '../../interfaces/IProduct';
 
 export function Home() {
-    const { listProducts } = useContext(ProductsContext);
+    const [listProducts, setListProducts] = useState<IProduct[]>([]);
+
+    useEffect(() => {
+        Api
+         .get("products.json")
+         .then((response) => setListProducts(response.data.data))
+         .catch((err) => {
+            console.error("ops! ocorreu um erro" + err);
+          });
+    }, []);
     
     const productsCards = listProducts ? listProducts.map((product: IProduct) => (<Card key={product.id} {...product}/>)) : <></>
 
@@ -18,7 +27,7 @@ export function Home() {
                     <h3>Nossos cafés</h3>
                 </HeaderProducts>
                 <GridProducts>
-                    { productsCards }
+                    {productsCards}
                 </GridProducts>
             </ContainerProducts>
         </main>

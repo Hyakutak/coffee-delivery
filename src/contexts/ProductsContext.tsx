@@ -1,13 +1,19 @@
-import { createContext, ReactNode, useState, useEffect, useReducer } from "react";
-import { IProduct } from '../interfaces/IProduct';
-import Api from '../services/Api';
-import { CartReducer, IProductsInCart } from "../reducers/reducer";
-import { addNewProductToCart } from "../reducers/actions";
+import { createContext, ReactNode, useReducer } from "react";
+import { ProductsReducer } from "../reducers/products/reducer";
+import { addNewProductToCartAction, deletedProductToCartAction } from "../reducers/products/actions";
+
+export interface NewProductData {
+    id: number,
+    name: string,
+    image: string,
+    price: number,
+    amount: number
+}
 
 interface ProductsContextType {
-    products: IProduct[];
-        listProducts?: IProduct[];
-        handleAddProductToCart: (product: IProduct) => void;
+    products: NewProductData[];
+    handleAddProductToCart: (product: NewProductData) => void;
+    handleDeletedProductToCart: (id: number) => void
 }
 
 interface ProductsContextProviderProps {
@@ -17,26 +23,35 @@ interface ProductsContextProviderProps {
 export const ProductsContext = createContext({} as ProductsContextType);
 
 export function ProductsContextProvider({ children }: ProductsContextProviderProps) {
-    const [cartState, dispatch] = useReducer(
-		CartReducer,
-    { products: [] } as IProductsInCart,);
-    const [listProducts, setListProducts] = useState<IProduct[]>([]);
+    const [cartState, dispatch] = useReducer(ProductsReducer,
+        { products: [] },
+    );
 
-    useEffect(() => {
-        Api
-         .get("products.json")
-         .then((response) => setListProducts(response.data.data))
-         .catch((err) => {
-            console.error("ops! ocorreu um erro" + err);
-          });
-    }, []);
+    const { products } = cartState;
 
-    function handleAddProductToCart(product: IProduct) {
-        dispatch(addNewProductToCart(product));
+    function handleAddProductToCart(data: NewProductData) {
+
+        const newProduct = {
+            id: data.id,
+            name: data.name,
+            image: data.image,
+            price: data.price,
+            amount: data.amount
+        }
+
+        dispatch(addNewProductToCartAction(newProduct));
+    }
+
+    function handleDeletedProductToCart(id: number) {
+        dispatch(deletedProductToCartAction(id));
     }
 
     return (
-        <ProductsContext.Provider value={{ listProducts, handleAddProductToCart }}>
+        <ProductsContext.Provider value={{ 
+                products, 
+                handleAddProductToCart, 
+                handleDeletedProductToCart
+            }}>
             { children }
         </ProductsContext.Provider>
     );
