@@ -23,7 +23,7 @@ export function Card({id, name, price, image, amount}: NewProductData) {
         <CardContent>
             <CardContainer>
                 <header>
-                    <img src={ image } />
+                    <img src={ image } alt={name} />
                     <section>
                         <h2>{ name }</h2>
                         <Actions>

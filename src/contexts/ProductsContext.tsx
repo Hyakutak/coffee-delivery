@@ -10,8 +10,19 @@ export interface NewProductData {
     amount: number
 }
 
+export interface userInfoAddress {
+    cep: number,
+    logradouro: string,
+    bairro: string,
+    complemento: string,
+    localidade: string,
+    uf: string,
+    number: number
+}
+
 interface ProductsContextType {
     products: NewProductData[];
+    userInfo: userInfoAddress;
     handleAddProductToCart: (product: NewProductData) => void;
     handleDeletedProductToCart: (id: number) => void;
     handleAmountProductToCart: (id: number, amount: number) => void
@@ -25,12 +36,18 @@ export const ProductsContext = createContext({} as ProductsContextType);
 
 export function ProductsContextProvider({ children }: ProductsContextProviderProps) {
     const [cartState, dispatch] = useReducer(ProductsReducer,
-        { products: [] },
-        () => {
+        { 
+            products: [],
+            userInfo: {},
+            paymentMethod: String
+        },
+        (initalState) => {
             const storedStateAsJSON = localStorage.getItem('@coffee-delivery:cart-state-1.0.0');
             if(storedStateAsJSON) {
                 return JSON.parse(storedStateAsJSON);
             }
+
+            return initalState;
         },
     );
 
@@ -39,7 +56,7 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON);
     }, [cartState]);
 
-    const { products } = cartState;
+    const { products, userInfo } = cartState;
 
     function handleAddProductToCart(data: NewProductData) {
         const newProduct = {
@@ -63,6 +80,7 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
     return (
         <ProductsContext.Provider value={{ 
                 products, 
+                userInfo,
                 handleAddProductToCart, 
                 handleDeletedProductToCart,
                 handleAmountProductToCart

@@ -1,9 +1,24 @@
+import { FormProvider, useForm } from 'react-hook-form';
 import { useContext } from 'react';
+import * as zod from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ProductsContext } from '../../contexts/ProductsContext';
 import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
 import { ContainerCheckout, ContentAside, ButtonBuy, PriceContainer, TotalPrice } from './styles';
 import { Card } from './components/Card';
-import { NewProductData, ProductsContext } from '../../contexts/ProductsContext';
+
+const newCompleteOrderFormSchema = zod.object({
+    CEP: zod.string().regex(/^[0-9]{5}-[0-9]{3}$/),
+    road: zod.string().min(10),
+    number: zod.string().min(1).max(3),
+    complement: zod.string().min(20),
+    district: zod.string().min(10),
+    city: zod.string(),
+    estate: zod.string(),
+});
+
+export type NewCompleteOrderData = zod.infer<typeof newCompleteOrderFormSchema>;
 
 export function Checkout() {
     const { products } = useContext(ProductsContext);
@@ -17,13 +32,28 @@ export function Checkout() {
     const ProductsToCart = products ? products.map((product) => 
         (<Card key={product.id} {...product} />)) 
         : <></>
+
+    const newOrderForm = useForm<NewCompleteOrderData>({
+        resolver: zodResolver(newCompleteOrderFormSchema),
+        defaultValues: {
+            CEP: '',
+            road: '',
+            number: '',
+            complement: '',
+            district: '',
+            city: '',
+            estate: '',
+        },
+    });
     
     return (
         <ContainerCheckout>
             <article>
                 <h3>Complete seu pedido</h3>
-                <FormAddress />
-                <PaymentMethods />
+                <FormProvider {...newOrderForm}>
+                    <FormAddress />
+                    <PaymentMethods />
+                </FormProvider>
             </article>
             <aside>
                 <h3>Cafés selecionados</h3>

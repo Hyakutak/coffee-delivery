@@ -1,9 +1,10 @@
 import { ActionTypes } from "./actions";
-import { NewProductData } from "../../contexts/ProductsContext";
+import { NewProductData, userInfoAddress } from "../../contexts/ProductsContext";
 import produce from "immer";
 
 export interface IProductsInCart {
-    products: NewProductData[]
+    products: NewProductData[];
+	userInfo: userInfoAddress;
 }
 
 export function ProductsReducer(state: IProductsInCart, action: any) {

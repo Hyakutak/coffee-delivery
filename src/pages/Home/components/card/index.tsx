@@ -37,7 +37,7 @@ export function Card({ id, types, price, image, name, description } :IProduct) {
 
     return (
         <CardProduct>
-            <img src={image} />
+            <img src={image} alt={name} />
             <CardProductTypes>
                 {typesProduct}
             </CardProductTypes>
