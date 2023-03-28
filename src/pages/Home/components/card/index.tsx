@@ -13,6 +13,9 @@ export function Card({ id, types, price, image, name, description } :IProduct) {
     }
 
     function declementAmount() {
+        if(itemAmount <= 1) {
+            return itemAmount;
+        }
         setItemAmount((itemAmount) => --itemAmount)
     }
 

@@ -1,14 +1,24 @@
 import { CardContent, CardContainer, Actions, ActionRemove, ActionQuantidy } from './styles';
 import { Trash, Plus, Minus } from "phosphor-react";
 import { NewProductData, ProductsContext } from '../../../../contexts/ProductsContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 export function Card({id, name, price, image, amount}: NewProductData) {
-    const { handleDeletedProductToCart } = useContext(ProductsContext);
+    const { handleDeletedProductToCart, handleAmountProductToCart } = useContext(ProductsContext);
+    const [itemAmount, setItemAmount] = useState<number>(1);
 
     function sendProductToCart() {
 		handleDeletedProductToCart(id);
-	};
+	}
+
+    function incrementProductToCart() {
+        handleAmountProductToCart(id, amount + 1)
+    }
+
+    function decrementProductToCart() {
+        handleAmountProductToCart(id, amount - 1)
+    }
+
     return (
         <CardContent>
             <CardContainer>
@@ -18,9 +28,9 @@ export function Card({id, name, price, image, amount}: NewProductData) {
                         <h2>{ name }</h2>
                         <Actions>
                             <ActionQuantidy>
-                                <Minus size={14} />
-                                <input value={amount} /*onChange={(event) => setItemAmount(Number(event.target.value))}*/ min="1" name="quantity" type="number" />
-                                <Plus size={14} />
+                                <Minus size={14} onClick={decrementProductToCart} />
+                                <input value={amount} onChange={(event) => setItemAmount(Number(event.target.value))} min="1" name="quantity" type="number" />
+                                <Plus size={14} onClick={incrementProductToCart} />
                             </ActionQuantidy>
                             <ActionRemove onClick={sendProductToCart}>
                                 <Trash size={16} />
