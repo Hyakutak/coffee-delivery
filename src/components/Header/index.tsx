@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { NewProductData, ProductsContext } from "../../contexts/ProductsContext";
 
 export function Header() {
-    const { products } = useContext(ProductsContext);
+    const { products, userInfo } = useContext(ProductsContext);
 
     const totalProductsInCart = products.reduce<number>(
         (value: number, currentProduct: NewProductData) => currentProduct.amount ? ++value : value, 0
@@ -23,7 +23,7 @@ export function Header() {
             <HeaderContainerActions>
                 <HeaderContainerAction backgroundVariant={'purple-light'} variantIcon={'purple'} variantText={'purple-dark'}>
                     <MapPin size={22} weight="fill" />
-                    <span>Porto Alegre, RS</span>
+                    <span>{userInfo != null ? `${userInfo.localidade}, ${userInfo.uf}` : 'Porto Alegre, RS'}</span>
                 </HeaderContainerAction>
                 <HeaderContainerAction backgroundVariant={'yellow-light'} variantIcon={'yellow'} variantText={'yellow-dark'}>
                     <NavLink to="/checkout" title="Checkout">

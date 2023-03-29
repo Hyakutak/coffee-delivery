@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import { ProductsContext } from '../../contexts/ProductsContext';
 import { SuccessContainer, SuccessContent, SuccessInfo, SuccessInfoDelivy } from './styles';
 import Delivery from '../../assets/Illustration.svg';
 import { MapPin, Timer, CurrencyDollar } from "phosphor-react";
 
 export function CheckoutSuccess() {
+    const {  userInfo } = useContext(ProductsContext);
+
     return (
         <SuccessContainer>
             <header>
@@ -14,8 +18,8 @@ export function CheckoutSuccess() {
                     <SuccessInfo color='purple'>
                         <MapPin size={32} weight="fill" />
                         <div>
-                            <span>Entrega em <SuccessInfoDelivy> Rua João Daniel Martinelli, 102</SuccessInfoDelivy></span>
-                            <span>Farrapos - Porto Alegre, RS</span>
+                            <span>Entrega em <SuccessInfoDelivy>{userInfo.logradouro}, {userInfo.number}</SuccessInfoDelivy></span>
+                            <span>{userInfo.bairro} - {userInfo.localidade}, {userInfo.uf}</span>
                         </div>
                     </SuccessInfo>
                     <SuccessInfo color='yellow'>

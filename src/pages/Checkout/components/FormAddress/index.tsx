@@ -1,24 +1,15 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ContainerForm, InputContainer } from './styles';
+import { ProductsContext, userInfoAddress } from '../../../../contexts/ProductsContext';
 import { MapPinLine } from 'phosphor-react';
 import Api from '../../../../services/Api';
 import { Config } from '../../../../config';
 import InputMask from 'react-input-mask';
-import produce from 'immer';
-
-interface AddressUser {
-    cep: number,
-    logradouro: string,
-    bairro: string,
-    complemento: string,
-    localidade: string,
-    uf: string
-}
 
 export function FormAddress() {
-    const [ cepInfo, setCepInfo ] = useState<AddressUser>();
-    const [ numberUser, setNumberUser ] = useState<number>();
+    const [ cepInfo, setCepInfo ] = useState<userInfoAddress>();
+    const { handleAddAddressUser } = useContext(ProductsContext);
     const { register, watch } = useFormContext();
 
     const cep = watch('CEP');
@@ -38,15 +29,29 @@ export function FormAddress() {
     }, [watch('CEP')]);
 
     function handleChangeInputNumber(event: ChangeEvent<HTMLInputElement>) {
-        setNumberUser(Number(event.target.value));
+        const newUser = {
+            cep: cepInfo?.cep,
+            logradouro: cepInfo?.logradouro,
+            bairro: cepInfo?.bairro,
+            complemento: cepInfo?.complemento,
+            localidade: cepInfo?.localidade,
+            uf: cepInfo?.uf,
+            number: Number(event.target.value)
+        }
+        handleAddAddressUser(newUser);
     }
 
     function handleChangeInputComplement(event: ChangeEvent<HTMLInputElement>) {
-        setCepInfo(
-            produce((draft) => {
-                draft ? draft.complemento = event.target.value : '';
-            })
-        );
+        const newUser = {
+            cep: cepInfo?.cep,
+            logradouro: cepInfo?.logradouro,
+            bairro: cepInfo?.bairro,
+            complemento: event.target.value,
+            localidade: cepInfo?.localidade,
+            uf: cepInfo?.uf,
+            number: cepInfo?.number
+        }
+        handleAddAddressUser(newUser);
     }
 
     return (
@@ -79,7 +84,6 @@ export function FormAddress() {
                         style={{ maxWidth: "min(200px, 100%)" }} 
                         type="number" 
                         placeholder='Número' 
-                        value={numberUser}
                         onChange={handleChangeInputNumber} />
                     <input 
                         type="text" 

@@ -1,6 +1,10 @@
 import { createContext, ReactNode, useEffect, useReducer } from "react";
 import { ProductsReducer } from "../reducers/products/reducer";
-import { addNewProductToCartAction, deletedProductToCartAction, changeAmountProductToCartAction } from "../reducers/products/actions";
+import { addNewProductToCartAction, 
+         deletedProductToCartAction, 
+         changeAmountProductToCartAction,
+         addUserAddressInfoAction,
+         finishOrderAction } from "../reducers/products/actions";
 
 export interface NewProductData {
     id: number,
@@ -14,7 +18,7 @@ export interface userInfoAddress {
     cep: number,
     logradouro: string,
     bairro: string,
-    complemento: string,
+    complemento: string | undefined,
     localidade: string,
     uf: string,
     number: number
@@ -25,7 +29,9 @@ interface ProductsContextType {
     userInfo: userInfoAddress;
     handleAddProductToCart: (product: NewProductData) => void;
     handleDeletedProductToCart: (id: number) => void;
-    handleAmountProductToCart: (id: number, amount: number) => void
+    handleAmountProductToCart: (id: number, amount: number) => void;
+    handleAddAddressUser: (userInfo: userInfoAddress) => void;
+    handleFinishOrder: () => void
 }
 
 interface ProductsContextProviderProps {
@@ -39,7 +45,6 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         { 
             products: [],
             userInfo: {},
-            paymentMethod: String
         },
         (initalState) => {
             const storedStateAsJSON = localStorage.getItem('@coffee-delivery:cart-state-1.0.0');
@@ -77,13 +82,33 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         dispatch(changeAmountProductToCartAction(id, amount));
     }
 
+    function handleAddAddressUser(data: userInfoAddress) {
+        const InfoAddress = {
+            cep: data.cep,
+            logradouro: data.logradouro,
+            bairro: data.bairro,
+            complemento: data.complemento,
+            localidade: data.localidade,
+            uf: data.uf,
+            number: data.number
+        }
+
+        dispatch(addUserAddressInfoAction(InfoAddress))
+    }
+
+    function handleFinishOrder() {
+        dispatch(finishOrderAction());
+    }
+
     return (
         <ProductsContext.Provider value={{ 
                 products, 
                 userInfo,
                 handleAddProductToCart, 
                 handleDeletedProductToCart,
-                handleAmountProductToCart
+                handleAmountProductToCart,
+                handleAddAddressUser,
+                handleFinishOrder
             }}>
             { children }
         </ProductsContext.Provider>

@@ -1,6 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
-import { useContext } from 'react';
+import { FormEvent, useContext } from 'react';
 import * as zod from 'zod';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductsContext } from '../../contexts/ProductsContext';
 import { FormAddress } from './components/FormAddress';
@@ -21,7 +22,8 @@ const newCompleteOrderFormSchema = zod.object({
 export type NewCompleteOrderData = zod.infer<typeof newCompleteOrderFormSchema>;
 
 export function Checkout() {
-    const { products } = useContext(ProductsContext);
+    const { products, handleFinishOrder } = useContext(ProductsContext);
+    const navigate = useNavigate();
 
     const totalProducts = products.reduce((value, product) => value + (product.price * product.amount), 0);
 
@@ -45,6 +47,12 @@ export function Checkout() {
             estate: '',
         },
     });
+
+    function handleFinishOrderAction(event: FormEvent) {
+        event.preventDefault();
+        handleFinishOrder();
+        navigate('/checkout/success');
+    }
     
     return (
         <ContainerCheckout>
@@ -73,7 +81,7 @@ export function Checkout() {
                             <h5>R$ {totalPriceProducts.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</h5>
                         </TotalPrice>
                     </PriceContainer>
-                    <form action="/checkout/success">
+                    <form onSubmit={handleFinishOrderAction}>
                         <ButtonBuy type="submit">
                             confirmar pedido
                         </ButtonBuy>

@@ -46,6 +46,18 @@ export function ProductsReducer(state: IProductsInCart, action: any) {
 			});
 		}
 
+		case ActionTypes.ADD_USER_INFO: {
+			return produce(state, (draft) => {
+				draft.userInfo = action.payload.userInfo;
+			});
+		}
+
+		case ActionTypes.FINISH_ORDER: {
+			return produce(state, (draft) => {
+				draft.products.splice(0, draft.products.length)
+			});
+		}
+
 		default:
 			return state;
 	}
