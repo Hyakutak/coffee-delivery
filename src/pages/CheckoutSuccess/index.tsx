@@ -1,11 +1,13 @@
 import { useContext } from 'react';
-import { ProductsContext } from '../../contexts/ProductsContext';
+import { ProductsContext } from '../../contexts/CartContext';
 import { SuccessContainer, SuccessContent, SuccessInfo, SuccessInfoDelivy } from './styles';
 import Delivery from '../../assets/Illustration.svg';
 import { MapPin, Timer, CurrencyDollar } from "phosphor-react";
 
 export function CheckoutSuccess() {
-    const {  userInfo } = useContext(ProductsContext);
+    const {  userInfo, paymentMethod } = useContext(ProductsContext);
+
+    
 
     return (
         <SuccessContainer>
@@ -18,7 +20,7 @@ export function CheckoutSuccess() {
                     <SuccessInfo color='purple'>
                         <MapPin size={32} weight="fill" />
                         <div>
-                            <span>Entrega em <SuccessInfoDelivy>{userInfo.logradouro}, {userInfo.number}</SuccessInfoDelivy></span>
+                            <span>Entrega em <SuccessInfoDelivy>{userInfo.logradouro}, 27</SuccessInfoDelivy></span>
                             <span>{userInfo.bairro} - {userInfo.localidade}, {userInfo.uf}</span>
                         </div>
                     </SuccessInfo>
@@ -33,7 +35,11 @@ export function CheckoutSuccess() {
                         <CurrencyDollar size={32} />
                         <div>
                             <span>Pagamento na entrega</span>
-                            <SuccessInfoDelivy>Cartão de Crédito</SuccessInfoDelivy>
+                            <SuccessInfoDelivy>
+                                { paymentMethod.isCredit && 'Cartão de Crédito' }
+                                { paymentMethod.isDebit && 'Cartão de Débito' }
+                                { paymentMethod.isMoney && 'Dinheiro' }
+                            </SuccessInfoDelivy>
                         </div>
                     </SuccessInfo>
                 </SuccessContent>

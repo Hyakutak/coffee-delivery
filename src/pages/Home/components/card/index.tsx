@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { IProduct } from '../../../../interfaces/IProduct';
 import { CardProduct, CardProductTypes, CardProductText, CardProductBuy, CardProductBuyActions, ActionQuantidy } from './styles';
 import { ShoppingCartSimple,Plus, Minus } from "phosphor-react";
-import { ProductsContext } from '../../../../contexts/ProductsContext';
+import { ProductsContext } from '../../../../contexts/CartContext';
 
 export function Card({ id, types, price, image, name, description } :IProduct) {
     const [itemAmount, setItemAmount] = useState<number>(1);

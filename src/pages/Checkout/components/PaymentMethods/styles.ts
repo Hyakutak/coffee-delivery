@@ -64,20 +64,16 @@ export const PaymentMethod = styled.button`
 
     &:hover {
         background: ${(props) => props.theme['base-hover']};
-        p {
-            color: ${(props) => props.theme['base-subtitle']};    
-        }
+        color: ${(props) => props.theme['base-subtitle']};    
     }
 
     svg {
         color: ${(props) =>props.theme['purple']};
     }
-    p {
-        color: ${(props) => props.theme['base-text']};
-        text-transform: uppercase;
-        font-family: 'Roboto', sans-serif;
-        font-weight: 400;
-        font-size: 0.75rem;
-        line-height: 1.1875rem;
-    }
+    color: ${(props) => props.theme['base-text']};
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.1875rem;
 `;

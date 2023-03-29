@@ -3,20 +3,15 @@ import { FormEvent, useContext } from 'react';
 import * as zod from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ProductsContext } from '../../contexts/ProductsContext';
+import { ProductsContext } from '../../contexts/CartContext';
 import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
+import { convertNumerToPrice } from '../../utils/formatPriceMoney';
 import { ContainerCheckout, ContentAside, ButtonBuy, PriceContainer, TotalPrice } from './styles';
 import { Card } from './components/Card';
 
 const newCompleteOrderFormSchema = zod.object({
     CEP: zod.string().regex(/^[0-9]{5}-[0-9]{3}$/),
-    road: zod.string().min(10),
-    number: zod.string().min(1).max(3),
-    complement: zod.string().min(20),
-    district: zod.string().min(10),
-    city: zod.string(),
-    estate: zod.string(),
 });
 
 export type NewCompleteOrderData = zod.infer<typeof newCompleteOrderFormSchema>;
@@ -26,10 +21,13 @@ export function Checkout() {
     const navigate = useNavigate();
 
     const totalProducts = products.reduce((value, product) => value + (product.price * product.amount), 0);
+    const formattedTotalProductsMoney = convertNumerToPrice(totalProducts);
 
-    const freight = 3.30;
+    const deliveryPrice = 3.30;
+    const formattedDeliveryPriceMoney = convertNumerToPrice(deliveryPrice);
 
-    const totalPriceProducts = products.reduce((value, product) => value + (product.price * product.amount) + freight, 0);
+    const totalPriceProducts = products.reduce((value, product) => value + (product.price * product.amount) + deliveryPrice, 0);
+    const formattedTotalPriceProducts = convertNumerToPrice(totalPriceProducts);
 
     const ProductsToCart = products ? products.map((product) => 
         (<Card key={product.id} {...product} />)) 
@@ -39,12 +37,6 @@ export function Checkout() {
         resolver: zodResolver(newCompleteOrderFormSchema),
         defaultValues: {
             CEP: '',
-            road: '',
-            number: '',
-            complement: '',
-            district: '',
-            city: '',
-            estate: '',
         },
     });
 
@@ -70,15 +62,15 @@ export function Checkout() {
                     <PriceContainer>
                         <div>
                             <span>Total de itens</span>
-                            <span>R$ {totalProducts.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</span>
+                            <span>R$ {formattedTotalProductsMoney}</span>
                         </div>
                         <div>
                             <span>Entrega</span>
-                            <span>R$ {freight.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</span>
+                            <span>R$ {formattedDeliveryPriceMoney}</span>
                         </div>
                         <TotalPrice>
                             <h5>Total</h5>
-                            <h5>R$ {totalPriceProducts.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</h5>
+                            <h5>R$ {formattedTotalPriceProducts}</h5>
                         </TotalPrice>
                     </PriceContainer>
                     <form onSubmit={handleFinishOrderAction}>

@@ -6,7 +6,7 @@ import { MapPin, ShoppingCart } from "phosphor-react";
 import LogoCoffeeDelivery from "../../assets/logo-coffee-delivery.svg";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { NewProductData, ProductsContext } from "../../contexts/ProductsContext";
+import { NewProductData, ProductsContext } from "../../contexts/CartContext";
 
 export function Header() {
     const { products, userInfo } = useContext(ProductsContext);
@@ -23,7 +23,7 @@ export function Header() {
             <HeaderContainerActions>
                 <HeaderContainerAction backgroundVariant={'purple-light'} variantIcon={'purple'} variantText={'purple-dark'}>
                     <MapPin size={22} weight="fill" />
-                    <span>{userInfo != null ? `${userInfo.localidade}, ${userInfo.uf}` : 'Porto Alegre, RS'}</span>
+                    <span>{userInfo.localidade != undefined ? `${userInfo.localidade}, ${userInfo.uf}` : 'São Paulo, SP'}</span>
                 </HeaderContainerAction>
                 <HeaderContainerAction backgroundVariant={'yellow-light'} variantIcon={'yellow'} variantText={'yellow-dark'}>
                     <NavLink to="/checkout" title="Checkout">

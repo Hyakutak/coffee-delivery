@@ -1,6 +1,6 @@
 import { CardContent, CardContainer, Actions, ActionRemove, ActionQuantidy } from './styles';
 import { Trash, Plus, Minus } from "phosphor-react";
-import { NewProductData, ProductsContext } from '../../../../contexts/ProductsContext';
+import { NewProductData, ProductsContext } from '../../../../contexts/CartContext';
 import { useContext, useState } from 'react';
 
 export function Card({id, name, price, image, amount}: NewProductData) {

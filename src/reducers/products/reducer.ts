@@ -1,5 +1,5 @@
 import { ActionTypes } from "./actions";
-import { NewProductData, userInfoAddress } from "../../contexts/ProductsContext";
+import { NewProductData, userInfoAddress } from "../../contexts/CartContext";
 import produce from "immer";
 
 export interface IProductsInCart {

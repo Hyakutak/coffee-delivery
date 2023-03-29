@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useReducer } from "react";
+import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
 import { ProductsReducer } from "../reducers/products/reducer";
 import { addNewProductToCartAction, 
          deletedProductToCartAction, 
@@ -18,20 +18,26 @@ export interface userInfoAddress {
     cep: number,
     logradouro: string,
     bairro: string,
-    complemento: string | undefined,
     localidade: string,
     uf: string,
-    number: number
+}
+
+interface paymentMethod {
+    isCredit: boolean,
+    isDebit: boolean,
+    isMoney: boolean
 }
 
 interface ProductsContextType {
     products: NewProductData[];
     userInfo: userInfoAddress;
+    paymentMethod: paymentMethod;
     handleAddProductToCart: (product: NewProductData) => void;
     handleDeletedProductToCart: (id: number) => void;
     handleAmountProductToCart: (id: number, amount: number) => void;
     handleAddAddressUser: (userInfo: userInfoAddress) => void;
-    handleFinishOrder: () => void
+    handleFinishOrder: () => void;
+    handleClickModifiedPaymentMethod: (event: HTMLButtonElement) => void
 }
 
 interface ProductsContextProviderProps {
@@ -55,6 +61,12 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
             return initalState;
         },
     );
+
+    const [paymentMethod, setPaymentMethod] = useState({
+        isCredit: true,
+        isDebit: false,
+        isMoney: false
+    });
 
     useEffect(() => {
         const stateJSON = JSON.stringify(cartState);
@@ -87,10 +99,8 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
             cep: data.cep,
             logradouro: data.logradouro,
             bairro: data.bairro,
-            complemento: data.complemento,
             localidade: data.localidade,
             uf: data.uf,
-            number: data.number
         }
 
         dispatch(addUserAddressInfoAction(InfoAddress))
@@ -100,15 +110,43 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         dispatch(finishOrderAction());
     }
 
+    function handleClickModifiedPaymentMethod(event: HTMLButtonElement) {
+        switch (event.value) {
+            case 'isCredit': {
+                return setPaymentMethod({
+                    isCredit: true,
+                    isDebit: false,
+                    isMoney: false
+                });
+            }
+            case 'isDebit': {
+                return setPaymentMethod({
+                    isCredit: false,
+                    isDebit: true,
+                    isMoney: false
+                });
+            }
+            case 'isMoney': {
+                return setPaymentMethod({
+                    isCredit: false,
+                    isDebit: false,
+                    isMoney: true
+                });
+            }
+        }
+    }
+
     return (
         <ProductsContext.Provider value={{ 
                 products, 
                 userInfo,
+                paymentMethod,
                 handleAddProductToCart, 
                 handleDeletedProductToCart,
                 handleAmountProductToCart,
                 handleAddAddressUser,
-                handleFinishOrder
+                handleFinishOrder,
+                handleClickModifiedPaymentMethod
             }}>
             { children }
         </ProductsContext.Provider>

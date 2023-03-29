@@ -1,26 +1,31 @@
 import { useState, useEffect, ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ContainerForm, InputContainer } from './styles';
-import { ProductsContext, userInfoAddress } from '../../../../contexts/ProductsContext';
+import { ProductsContext } from '../../../../contexts/CartContext';
 import { MapPinLine } from 'phosphor-react';
 import Api from '../../../../services/Api';
 import { Config } from '../../../../config';
 import InputMask from 'react-input-mask';
 
 export function FormAddress() {
-    const [ cepInfo, setCepInfo ] = useState<userInfoAddress>();
-    const { handleAddAddressUser } = useContext(ProductsContext);
+    
+    const { handleAddAddressUser, userInfo } = useContext(ProductsContext);
     const { register, watch } = useFormContext();
 
     const cep = watch('CEP');
     const isCepValid = /^[0-9]{5}-[0-9]{3}$/.test(cep);
+
+    const logradouroUser = userInfo.logradouro ? userInfo.logradouro : '';
+    const bairroUser = userInfo.bairro ? userInfo.bairro : '';
+    const localidadeUser = userInfo.localidade ? userInfo.localidade : '';
+    const ufUser = userInfo.uf ? userInfo.uf : '';
 
     useEffect(() => {
         if(isCepValid) {
             Api
              .get(`${Config.dbUrl}/${cep}/json`)
              .then((response) => {
-                setCepInfo(response.data)
+                handleAddAddressUser(response.data);
              })
              .catch((err) => {
                 console.error("ops! ocorreu um erro" + err);
@@ -28,6 +33,7 @@ export function FormAddress() {
         }
     }, [watch('CEP')]);
 
+    /*
     function handleChangeInputNumber(event: ChangeEvent<HTMLInputElement>) {
         const newUser = {
             cep: cepInfo?.cep,
@@ -52,8 +58,7 @@ export function FormAddress() {
             number: cepInfo?.number
         }
         handleAddAddressUser(newUser);
-    }
-
+    } */
     return (
         <ContainerForm>
             <header>
@@ -76,7 +81,7 @@ export function FormAddress() {
                     <input 
                         type="text" 
                         placeholder='Rua' 
-                        value={cepInfo?.logradouro} 
+                        value={logradouroUser} 
                         disabled />
                 </InputContainer>
                 <InputContainer>
@@ -84,30 +89,30 @@ export function FormAddress() {
                         style={{ maxWidth: "min(200px, 100%)" }} 
                         type="number" 
                         placeholder='Número' 
-                        onChange={handleChangeInputNumber} />
+                        /*onChange={handleChangeInputNumber}*/ />
                     <input 
                         type="text" 
                         placeholder='Complemento' 
-                        onChange={handleChangeInputComplement} />
+                        /*onChange={handleChangeInputComplement}*/ />
                 </InputContainer>
                 <InputContainer>
                     <input 
                         style={{ maxWidth: "min(200px, 100%)" }} 
                         type="text" 
                         placeholder='Bairro'
-                        value={cepInfo?.bairro} 
+                        value={bairroUser} 
                         disabled />
                     <input 
                         style={{ maxWidth: "min(276px, 100%)" }} 
                         type="text" 
                         placeholder='Cidade'
-                        value={cepInfo?.localidade} 
+                        value={localidadeUser} 
                         disabled />
                     <input 
                         style={{ maxWidth: "min(60px, 100%)" }} 
                         type="text" 
                         placeholder='UF'
-                        value={cepInfo?.uf}
+                        value={ufUser}
                         disabled  />
                 </InputContainer>
             </form>
