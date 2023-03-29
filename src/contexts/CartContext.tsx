@@ -76,13 +76,7 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
     const { products, userInfo } = cartState;
 
     function handleAddProductToCart(data: NewProductData) {
-        const newProduct = {
-            id: data.id,
-            name: data.name,
-            image: data.image,
-            price: data.price,
-            amount: data.amount
-        }
+        const newProduct = { ...data}
         dispatch(addNewProductToCartAction(newProduct));
     }
 
