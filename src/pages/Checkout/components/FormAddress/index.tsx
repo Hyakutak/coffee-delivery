@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, useContext } from 'react';
+import { useEffect, ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ContainerForm, InputContainer } from './styles';
 import { ProductsContext } from '../../../../contexts/CartContext';
