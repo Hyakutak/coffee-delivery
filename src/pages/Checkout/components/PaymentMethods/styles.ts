@@ -46,7 +46,7 @@ export const PaymentContainer = styled.section`
         width: 100%;
         button[disabled] {
             background: ${(props) => props.theme['purple-light']};
-            border: 1px solid ${(props) => props.theme['purple-dark']};
+            border-color: ${(props) => props.theme['purple-dark']};
         }
     }
 `;
@@ -61,6 +61,13 @@ export const PaymentMethod = styled.button`
     gap: 0.75rem;
     width: 33%;
     cursor: pointer;
+    border: 1px solid transparent;
+    color: ${(props) => props.theme['base-text']};
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem;
+    line-height: 1.1875rem;
 
     &:hover {
         background: ${(props) => props.theme['base-hover']};
@@ -70,10 +77,4 @@ export const PaymentMethod = styled.button`
     svg {
         color: ${(props) =>props.theme['purple']};
     }
-    color: ${(props) => props.theme['base-text']};
-    text-transform: uppercase;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    font-size: 0.75rem;
-    line-height: 1.1875rem;
 `;

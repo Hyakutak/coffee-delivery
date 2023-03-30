@@ -22,22 +22,16 @@ export interface userInfoAddress {
     uf: string,
 }
 
-interface paymentMethod {
-    isCredit: boolean,
-    isDebit: boolean,
-    isMoney: boolean
-}
-
 interface ProductsContextType {
     products: NewProductData[];
     userInfo: userInfoAddress;
-    paymentMethod: paymentMethod;
+    formPayment: string
     handleAddProductToCart: (product: NewProductData) => void;
     handleDeletedProductToCart: (id: number) => void;
     handleAmountProductToCart: (id: number, amount: number) => void;
     handleAddAddressUser: (userInfo: userInfoAddress) => void;
     handleFinishOrder: () => void;
-    handleClickModifiedPaymentMethod: (event: HTMLButtonElement) => void
+    handleClickModifiedFormPayment: (method: string) => void
 }
 
 interface ProductsContextProviderProps {
@@ -62,11 +56,7 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         },
     );
 
-    const [paymentMethod, setPaymentMethod] = useState({
-        isCredit: true,
-        isDebit: false,
-        isMoney: false
-    });
+    const [formPayment, setFormPayment] = useState('');
 
     useEffect(() => {
         const stateJSON = JSON.stringify(cartState);
@@ -104,43 +94,21 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         dispatch(finishOrderAction());
     }
 
-    function handleClickModifiedPaymentMethod(event: HTMLButtonElement) {
-        switch (event.value) {
-            case 'isCredit': {
-                return setPaymentMethod({
-                    isCredit: true,
-                    isDebit: false,
-                    isMoney: false
-                });
-            }
-            case 'isDebit': {
-                return setPaymentMethod({
-                    isCredit: false,
-                    isDebit: true,
-                    isMoney: false
-                });
-            }
-            case 'isMoney': {
-                return setPaymentMethod({
-                    isCredit: false,
-                    isDebit: false,
-                    isMoney: true
-                });
-            }
-        }
+    function handleClickModifiedFormPayment(method: string) {
+        setFormPayment(method);
     }
 
     return (
         <ProductsContext.Provider value={{ 
                 products, 
                 userInfo,
-                paymentMethod,
+                formPayment,
                 handleAddProductToCart, 
                 handleDeletedProductToCart,
                 handleAmountProductToCart,
                 handleAddAddressUser,
                 handleFinishOrder,
-                handleClickModifiedPaymentMethod
+                handleClickModifiedFormPayment
             }}>
             { children }
         </ProductsContext.Provider>

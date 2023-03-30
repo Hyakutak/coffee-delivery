@@ -1,15 +1,18 @@
 import { PaymentContainer, PaymentMethod } from './styles';
 import { CurrencyDollar, CreditCard, Money, Bank } from 'phosphor-react';
-import { FormEvent, useContext } from 'react';
+import { useContext } from 'react';
 import { ProductsContext } from '../../../../contexts/CartContext';
 
 export function PaymentMethods() {
-    const { handleClickModifiedPaymentMethod, paymentMethod } = useContext(ProductsContext)
+    const { handleClickModifiedFormPayment, formPayment } = useContext(ProductsContext);
 
-    function modifiedPaymentMethod(event: FormEvent) {
-        const button = event.target as HTMLButtonElement;
-        handleClickModifiedPaymentMethod(button);
-    }
+    const credit = 'Cartão de Crédito';
+    const debit = 'Cartão de Débito';
+    const money = 'Dinheiro';
+
+    const isCredit = formPayment === credit;
+    const isDebit = formPayment === debit;
+    const isMoney = formPayment === money;
 
     return (
         <PaymentContainer>
@@ -21,15 +24,15 @@ export function PaymentMethods() {
                 </div>
             </header>
             <section>
-                <PaymentMethod disabled={paymentMethod.isCredit} value="isCredit" onClick={modifiedPaymentMethod}>
+                <PaymentMethod disabled={isCredit} onClick={() => handleClickModifiedFormPayment('Cartão de Crédito')}>
                     <CreditCard size={16} />
                     Cartão de crédito
                 </PaymentMethod>
-                <PaymentMethod disabled={paymentMethod.isDebit} value="isDebit" onClick={modifiedPaymentMethod}>
+                <PaymentMethod disabled={isDebit} onClick={() => handleClickModifiedFormPayment('Cartão de Débito')}>
                     <Bank size={16} />
                     <p>Cartão de débito</p>
                 </PaymentMethod>
-                <PaymentMethod disabled={paymentMethod.isMoney} value="isMoney" onClick={modifiedPaymentMethod}>
+                <PaymentMethod disabled={isMoney} onClick={() => handleClickModifiedFormPayment('Dinheiro')}>
                     <Money size={16} />
                     <p>Dinheiro</p>
                 </PaymentMethod>
