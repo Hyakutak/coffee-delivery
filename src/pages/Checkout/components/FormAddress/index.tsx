@@ -9,7 +9,11 @@ import InputMask from 'react-input-mask';
 
 export function FormAddress() {
     
-    const { handleAddAddressUser, userInfo } = useContext(ProductsContext);
+    const { 
+        handleAddAddressUser, 
+        userInfo, 
+        handleChangeNumberAddress,
+        handleChangeComplementAddress } = useContext(ProductsContext);
     const { register, watch } = useFormContext();
 
     const cep = watch('CEP');
@@ -33,32 +37,14 @@ export function FormAddress() {
         }
     }, [watch('CEP')]);
 
-    /*
-    function handleChangeInputNumber(event: ChangeEvent<HTMLInputElement>) {
-        const newUser = {
-            cep: cepInfo?.cep,
-            logradouro: cepInfo?.logradouro,
-            bairro: cepInfo?.bairro,
-            complemento: cepInfo?.complemento,
-            localidade: cepInfo?.localidade,
-            uf: cepInfo?.uf,
-            number: Number(event.target.value)
-        }
-        handleAddAddressUser(newUser);
+
+    function changeInputNumber(event: ChangeEvent<HTMLInputElement>) {
+        handleChangeNumberAddress(Number(event.target.value));
     }
 
-    function handleChangeInputComplement(event: ChangeEvent<HTMLInputElement>) {
-        const newUser = {
-            cep: cepInfo?.cep,
-            logradouro: cepInfo?.logradouro,
-            bairro: cepInfo?.bairro,
-            complemento: event.target.value,
-            localidade: cepInfo?.localidade,
-            uf: cepInfo?.uf,
-            number: cepInfo?.number
-        }
-        handleAddAddressUser(newUser);
-    } */
+    function changeInputComplement(event: ChangeEvent<HTMLInputElement>) {
+        handleChangeComplementAddress(event.target.value);
+    }
     return (
         <ContainerForm>
             <header>
@@ -89,11 +75,11 @@ export function FormAddress() {
                         style={{ maxWidth: "min(200px, 100%)" }} 
                         type="number" 
                         placeholder='Número' 
-                        /*onChange={handleChangeInputNumber}*/ />
+                        onChange={changeInputNumber} />
                     <input 
                         type="text" 
                         placeholder='Complemento' 
-                        /*onChange={handleChangeInputComplement}*/ />
+                        onChange={changeInputComplement} />
                 </InputContainer>
                 <InputContainer>
                     <input 

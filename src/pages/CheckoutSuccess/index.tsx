@@ -5,7 +5,7 @@ import Delivery from '../../assets/Illustration.svg';
 import { MapPin, Timer, CurrencyDollar } from "phosphor-react";
 
 export function CheckoutSuccess() {
-    const {  userInfo, formPayment } = useContext(ProductsContext);
+    const {  userInfo, formPayment, numberAddress } = useContext(ProductsContext);
 
     return (
         <SuccessContainer>
@@ -18,7 +18,7 @@ export function CheckoutSuccess() {
                     <SuccessInfo color='purple'>
                         <MapPin size={32} weight="fill" />
                         <div>
-                            <span>Entrega em <SuccessInfoDelivy>{userInfo.logradouro}, 27</SuccessInfoDelivy></span>
+                            <span>Entrega em <SuccessInfoDelivy>{userInfo.logradouro}, {numberAddress}</SuccessInfoDelivy></span>
                             <span>{userInfo.bairro} - {userInfo.localidade}, {userInfo.uf}</span>
                         </div>
                     </SuccessInfo>

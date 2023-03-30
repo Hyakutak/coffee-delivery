@@ -6,6 +6,8 @@ export enum ActionTypes {
 	CHANGE_PRODUCT_AMOUNT_TO_CARD = 'CHANGE_PRODUCT_AMOUNT_TO_CARD',
 	ADD_USER_INFO = 'ADD_USER_INFO',
 	FINISH_ORDER = 'FINISH_ORDER',
+	CHANGE_NUMBER_ADDRESS_USER = 'CHANGE_NUMBER_ADDRESS_USER',
+	CHANGE_COMPLEMENT_ADDRESS_USER = 'CHANGE_COMPLEMENT_ADDRESS_USER'
 }
 
 export function addNewProductToCartAction(product: NewProductData) {
@@ -49,4 +51,22 @@ export function finishOrderAction() {
 	return {
 		type: ActionTypes.FINISH_ORDER,
 	};
+}
+
+export function changeNumberAddressUser(num: number) {
+	return {
+		type: ActionTypes.CHANGE_NUMBER_ADDRESS_USER,
+		payload: {
+			num
+		}
+	}
+}
+
+export function changeComplementAddressUser(complement: string) {
+	return {
+		type: ActionTypes.CHANGE_COMPLEMENT_ADDRESS_USER,
+		payload: {
+			complement
+		}
+	}
 }

@@ -5,6 +5,8 @@ import produce from "immer";
 export interface IProductsInCart {
     products: NewProductData[];
 	userInfo: userInfoAddress;
+	numberAddress: 0;
+	complementUser: ''
 }
 
 export function ProductsReducer(state: IProductsInCart, action: any) {
@@ -15,7 +17,7 @@ export function ProductsReducer(state: IProductsInCart, action: any) {
 
 			if(currentProductIndex < 0) {
 				return produce(state, (draft) => {
-					draft.products.push(action.payload.product)
+					draft.products.push(action.payload.product);
 				});
 			}
 
@@ -26,7 +28,7 @@ export function ProductsReducer(state: IProductsInCart, action: any) {
 
 		case ActionTypes.DELETED_PRODUCT_TO_CART: {
 			return produce(state, (draft) => {
-				draft.products = draft.products.filter((product) => product.id !== action.payload.id)
+				draft.products = draft.products.filter((product) => product.id !== action.payload.id);
 			});
 		}
 
@@ -54,7 +56,19 @@ export function ProductsReducer(state: IProductsInCart, action: any) {
 
 		case ActionTypes.FINISH_ORDER: {
 			return produce(state, (draft) => {
-				draft.products.splice(0, draft.products.length)
+				draft.products.splice(0, draft.products.length);
+			});
+		}
+
+		case ActionTypes.CHANGE_NUMBER_ADDRESS_USER: {
+			return produce(state, (draft) => {
+				draft.numberAddress = action.payload.num;
+			});
+		}
+
+		case ActionTypes.CHANGE_COMPLEMENT_ADDRESS_USER: {
+			return produce(state, (draft) => {
+				draft.complementUser = action.payload.complement;
 			});
 		}
 

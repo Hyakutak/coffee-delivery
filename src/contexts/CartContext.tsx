@@ -4,7 +4,9 @@ import { addNewProductToCartAction,
          deletedProductToCartAction, 
          changeAmountProductToCartAction,
          addUserAddressInfoAction,
-         finishOrderAction } from "../reducers/products/actions";
+         finishOrderAction,
+         changeNumberAddressUser,
+         changeComplementAddressUser } from "../reducers/products/actions";
 
 export interface NewProductData {
     id: number,
@@ -25,13 +27,16 @@ export interface userInfoAddress {
 interface ProductsContextType {
     products: NewProductData[];
     userInfo: userInfoAddress;
-    formPayment: string
+    formPayment: string;
+    numberAddress: number;
     handleAddProductToCart: (product: NewProductData) => void;
     handleDeletedProductToCart: (id: number) => void;
     handleAmountProductToCart: (id: number, amount: number) => void;
     handleAddAddressUser: (userInfo: userInfoAddress) => void;
     handleFinishOrder: () => void;
-    handleClickModifiedFormPayment: (method: string) => void
+    handleClickModifiedFormPayment: (method: string) => void;
+    handleChangeNumberAddress: (num: number) => void;
+    handleChangeComplementAddress: (complement: string) => void;
 }
 
 interface ProductsContextProviderProps {
@@ -45,28 +50,26 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         { 
             products: [],
             userInfo: {},
+            numberAddress: 0,
+            complementUser: 'Casa'
         },
         (initalState) => {
             const storedStateAsJSON = localStorage.getItem('@coffee-delivery:cart-state-1.0.0');
-            if(storedStateAsJSON) {
-                return JSON.parse(storedStateAsJSON);
-            }
-
+            if(storedStateAsJSON) return JSON.parse(storedStateAsJSON);
             return initalState;
         },
     );
-
-    const [formPayment, setFormPayment] = useState('');
+    const [formPayment, setFormPayment] = useState<string>('');
 
     useEffect(() => {
         const stateJSON = JSON.stringify(cartState);
         localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON);
     }, [cartState]);
 
-    const { products, userInfo } = cartState;
+    const { products, userInfo, numberAddress } = cartState;
 
     function handleAddProductToCart(data: NewProductData) {
-        const newProduct = { ...data}
+        const newProduct = { ...data }
         dispatch(addNewProductToCartAction(newProduct));
     }
 
@@ -79,14 +82,7 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
     }
 
     function handleAddAddressUser(data: userInfoAddress) {
-        const InfoAddress = {
-            cep: data.cep,
-            logradouro: data.logradouro,
-            bairro: data.bairro,
-            localidade: data.localidade,
-            uf: data.uf,
-        }
-
+        const InfoAddress = { ...data }
         dispatch(addUserAddressInfoAction(InfoAddress))
     }
 
@@ -98,17 +94,28 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         setFormPayment(method);
     }
 
+    function handleChangeNumberAddress(num: number) {
+        dispatch(changeNumberAddressUser(num));
+    }
+
+    function handleChangeComplementAddress(complement: string) {
+        dispatch(changeComplementAddressUser(complement));
+    }
+
     return (
         <ProductsContext.Provider value={{ 
                 products, 
                 userInfo,
                 formPayment,
+                numberAddress,
                 handleAddProductToCart, 
                 handleDeletedProductToCart,
                 handleAmountProductToCart,
                 handleAddAddressUser,
                 handleFinishOrder,
-                handleClickModifiedFormPayment
+                handleClickModifiedFormPayment,
+                handleChangeNumberAddress,
+                handleChangeComplementAddress
             }}>
             { children }
         </ProductsContext.Provider>
