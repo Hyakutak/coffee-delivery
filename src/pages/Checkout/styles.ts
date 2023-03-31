@@ -1,9 +1,15 @@
 import styled from "styled-components";
+import { css } from "styled-components";
+import { mobile } from "../../styles/responsive";
 
 export const ContainerCheckout = styled.main`
     display: flex;
     gap: 2rem;
     padding-top: 2.5rem;
+
+    ${mobile(css`
+        flex-direction: column;
+    `)};
 
     h3 {
         font-family: 'Baloo 2';

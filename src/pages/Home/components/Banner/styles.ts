@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { css } from 'styled-components';
+import { mobile } from '../../../../styles/responsive';
 import BannerBackground from '../../../../assets/banner-background.svg';
 
 export type ItemBackground = 'yellow-dark' | 'yellow' | 'base-text' | 'purple';
@@ -30,6 +32,12 @@ export const ContainerBanner = styled.article`
         filter: blur(10px);
         z-index: 1;
     }
+
+    ${mobile(css`
+        flex-direction: column-reverse;
+        max-height: fit-content;
+    `)};
+
 `;
 
 export const ContainerBannerTexts = styled.section`
@@ -50,6 +58,10 @@ export const ContainerBannerHeading = styled.div`
         font-size: 3rem;
         line-height: 3.875rem;
         color: ${(props) => props.theme['base-title']};
+        ${mobile(css`
+            font-size: 2rem;
+            line-height: 2rem;
+        `)};
     }
 
     span {
@@ -58,17 +70,29 @@ export const ContainerBannerHeading = styled.div`
         color: ${(props) => props.theme['base-subtitle']};
         font-stretch: 100;
     }
+
+    ${mobile(css`
+        text-align: center;
+    `)};
 `;
 
 export const ContainerBannerList = styled.div`
     display: flex;
     flex-direction: row;
+    ${mobile(css`
+        flex-direction: column;
+    `)};
     ul {
         display: grid;
         grid-template-columns: 14.4375rem 18.375rem;
         row-gap: 1.25rem;
         column-gap: 2.5rem;
         list-style-type: none;
+        ${mobile(css`
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+        `)};
     }
 `;
 

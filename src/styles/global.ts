@@ -1,4 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
+import { mobile } from './responsive';
 
 export const GlobalStyle = createGlobalStyle`
   * {
@@ -28,5 +29,17 @@ export const GlobalStyle = createGlobalStyle`
       border-color: ${(props) => props.theme['yellow-dark']};
       outline: none;
     }
+  }
+
+  html {
+    ${mobile(css`
+      font-size: 87.5%;
+    `)};
+  } 
+
+  main {
+    ${mobile(css`
+      padding-bottom: 2rem;
+    `)};
   }
 `;

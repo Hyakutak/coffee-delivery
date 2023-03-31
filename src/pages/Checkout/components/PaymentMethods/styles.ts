@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { css } from "styled-components";
+import { mobile } from "../../../../styles/responsive";
 
 export const PaymentContainer = styled.section`
     display: flex;
@@ -44,6 +46,11 @@ export const PaymentContainer = styled.section`
         align-items: center;
         gap: 0.75rem;
         width: 100%;
+
+        ${mobile(css`
+            flex-direction: column;
+        `)};
+
         button[disabled] {
             background: ${(props) => props.theme['purple-light']};
             border-color: ${(props) => props.theme['purple-dark']};
@@ -68,6 +75,11 @@ export const PaymentMethod = styled.button`
     font-weight: 400;
     font-size: 0.75rem;
     line-height: 1.1875rem;
+
+    ${mobile(css`
+        width: 100%;
+        justify-content: center;
+    `)};
 
     &:hover {
         background: ${(props) => props.theme['base-hover']};

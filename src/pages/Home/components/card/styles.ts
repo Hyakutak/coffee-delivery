@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { css } from 'styled-components';
+import { mobile } from '../../../../styles/responsive';
 
 export const CardProduct = styled.div`
     max-width: 16rem;
@@ -10,6 +12,12 @@ export const CardProduct = styled.div`
     background: ${(props) => props.theme['base-card']};
     padding-top: 7rem;
     position: relative;
+
+    ${mobile(css`
+        max-width: 90%;
+        margin: 0 auto;
+        width: 22rem;
+    `)};
 
     img {
         width: 7.5rem;
@@ -67,6 +75,11 @@ export const CardProductBuy = styled.section`
     p {
         line-height: 1.1375rem;
         font-size: 0.875rem;
+
+        ${mobile(css`
+            font-size: 1rem;
+        `)};
+
         span {
             font-weight: 800;
             font-family: 'Baloo 2';
@@ -110,6 +123,12 @@ export const ActionQuantidy = styled.div`
     max-width: 4.5rem;
     background: ${(props) => props.theme['base-button']};
     border-radius: 6px;
+
+    ${mobile(css`
+        width: 6rem;
+        max-width: 6rem;
+    `)};
+
     svg {
         background: transparent;
         color: ${(props) => props.theme['purple']};

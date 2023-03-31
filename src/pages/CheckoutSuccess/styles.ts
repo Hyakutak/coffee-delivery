@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { css } from "styled-components";
+import { mobile } from "../../styles/responsive";
 
 export type ItemBackground = 'yellow-dark' | 'yellow' | 'purple';
 
@@ -33,6 +35,9 @@ export const SuccessContainer = styled.article`
     section {
         display: flex;
         gap: 6.375rem;
+        ${mobile(css`
+            flex-direction: column-reverse;
+        `)};
     }
 `;
 
@@ -47,6 +52,10 @@ export const SuccessContent = styled.div`
     position: relative;
     background: ${(props) => props.theme['background']};
     min-width: 32.875rem;
+
+    ${mobile(css`
+        min-width: 100%;
+    `)};
 
     &:before {
         content: '';
