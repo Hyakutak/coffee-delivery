@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Api from '../../services/Api';
-import { Config } from '../../config';
+import { urlsApis } from "../../utils/urlsApi";
 import { Banner } from "./components/Banner";
 import { Card } from './components/card';
 import { GridProducts, HeaderProducts, ContainerProducts } from './style';
@@ -11,7 +11,7 @@ export function Home() {
 
     useEffect(() => {
         Api
-         .get(Config.productsUrl)
+         .get(urlsApis.productsUrl)
          .then((response) => setListProducts(response.data.data))
          .catch((err) => {
             console.error("ops! ocorreu um erro" + err);

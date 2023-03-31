@@ -1,33 +1,29 @@
 import { useEffect, ChangeEvent, useContext } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { ContainerForm, InputContainer } from './styles';
-import { ProductsContext } from '../../../../contexts/CartContext';
+import { urlsApis } from '../../../../utils/urlsApi';
+import { UserContext } from '../../../../contexts/UserContext';
 import { MapPinLine } from 'phosphor-react';
 import Api from '../../../../services/Api';
-import { Config } from '../../../../config';
 import InputMask from 'react-input-mask';
 
 export function FormAddress() {
     
-    const { 
-        handleAddAddressUser, 
-        userInfo, 
-        handleChangeNumberAddress,
-        handleChangeComplementAddress } = useContext(ProductsContext);
+    const { userAddress, handleAddAddressUser, handleChangeNumberAddress, handleChangeComplementAddress } = useContext(UserContext)
     const { register, watch } = useFormContext();
 
     const cep = watch('CEP');
     const isCepValid = /^[0-9]{5}-[0-9]{3}$/.test(cep);
 
-    const logradouroUser = userInfo.logradouro ? userInfo.logradouro : '';
-    const bairroUser = userInfo.bairro ? userInfo.bairro : '';
-    const localidadeUser = userInfo.localidade ? userInfo.localidade : '';
-    const ufUser = userInfo.uf ? userInfo.uf : '';
+    const logradouroUser = userAddress.logradouro ? userAddress.logradouro : '';
+    const bairroUser = userAddress.bairro ? userAddress.bairro : '';
+    const localidadeUser = userAddress.localidade ? userAddress.localidade : '';
+    const ufUser = userAddress.uf ? userAddress.uf : '';
 
     useEffect(() => {
         if(isCepValid) {
             Api
-             .get(`${Config.dbUrl}/${cep}/json`)
+             .get(`${urlsApis.viaCepUrl}/${cep}/json`)
              .then((response) => {
                 handleAddAddressUser(response.data);
              })

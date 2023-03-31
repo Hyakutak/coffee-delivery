@@ -1,42 +1,19 @@
 import { createContext, ReactNode, useEffect, useReducer, useState } from "react";
-import { ProductsReducer } from "../reducers/products/reducer";
+import { ProductsReducer } from "../reducers/Cart/reducer";
 import { addNewProductToCartAction, 
          deletedProductToCartAction, 
          changeAmountProductToCartAction,
-         addUserAddressInfoAction,
-         finishOrderAction,
-         changeNumberAddressUser,
-         changeComplementAddressUser } from "../reducers/products/actions";
-
-export interface NewProductData {
-    id: number,
-    name: string,
-    image: string,
-    price: number,
-    amount: number
-}
-
-export interface userInfoAddress {
-    cep: number,
-    logradouro: string,
-    bairro: string,
-    localidade: string,
-    uf: string,
-}
+         finishOrderAction } from "../reducers/Cart/actions";
+import { IProductCart } from "../interfaces/IProductCart";
 
 interface ProductsContextType {
-    products: NewProductData[];
-    userInfo: userInfoAddress;
+    products: IProductCart[];
     formPayment: string;
-    numberAddress: number;
-    handleAddProductToCart: (product: NewProductData) => void;
+    handleAddProductToCart: (product: IProductCart) => void;
     handleDeletedProductToCart: (id: number) => void;
     handleAmountProductToCart: (id: number, amount: number) => void;
-    handleAddAddressUser: (userInfo: userInfoAddress) => void;
     handleFinishOrder: () => void;
     handleClickModifiedFormPayment: (method: string) => void;
-    handleChangeNumberAddress: (num: number) => void;
-    handleChangeComplementAddress: (complement: string) => void;
 }
 
 interface ProductsContextProviderProps {
@@ -49,14 +26,11 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
     const [cartState, dispatch] = useReducer(ProductsReducer,
         { 
             products: [],
-            userInfo: {},
-            numberAddress: 0,
-            complementUser: 'Casa'
         },
-        (initalState) => {
+        (initialState) => {
             const storedStateAsJSON = localStorage.getItem('@coffee-delivery:cart-state-1.0.0');
             if(storedStateAsJSON) return JSON.parse(storedStateAsJSON);
-            return initalState;
+            return initialState;
         },
     );
     const [formPayment, setFormPayment] = useState<string>('');
@@ -66,9 +40,9 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON);
     }, [cartState]);
 
-    const { products, userInfo, numberAddress } = cartState;
+    const { products} = cartState;
 
-    function handleAddProductToCart(data: NewProductData) {
+    function handleAddProductToCart(data: IProductCart) {
         const newProduct = { ...data }
         dispatch(addNewProductToCartAction(newProduct));
     }
@@ -81,11 +55,6 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         dispatch(changeAmountProductToCartAction(id, amount));
     }
 
-    function handleAddAddressUser(data: userInfoAddress) {
-        const InfoAddress = { ...data }
-        dispatch(addUserAddressInfoAction(InfoAddress))
-    }
-
     function handleFinishOrder() {
         dispatch(finishOrderAction());
     }
@@ -94,28 +63,15 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         setFormPayment(method);
     }
 
-    function handleChangeNumberAddress(num: number) {
-        dispatch(changeNumberAddressUser(num));
-    }
-
-    function handleChangeComplementAddress(complement: string) {
-        dispatch(changeComplementAddressUser(complement));
-    }
-
     return (
         <ProductsContext.Provider value={{ 
                 products, 
-                userInfo,
                 formPayment,
-                numberAddress,
                 handleAddProductToCart, 
                 handleDeletedProductToCart,
                 handleAmountProductToCart,
-                handleAddAddressUser,
                 handleFinishOrder,
                 handleClickModifiedFormPayment,
-                handleChangeNumberAddress,
-                handleChangeComplementAddress
             }}>
             { children }
         </ProductsContext.Provider>

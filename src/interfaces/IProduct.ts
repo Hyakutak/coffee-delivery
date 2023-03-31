@@ -3,7 +3,6 @@ export interface IProduct {
     name: string,
     description: string,
     image: string,
-    price: float,
-    types: string[],
-    amount: number
+    price: number,
+    types: string[]
 }

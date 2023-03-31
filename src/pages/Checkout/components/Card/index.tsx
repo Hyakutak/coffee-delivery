@@ -1,9 +1,10 @@
 import { CardContent, CardContainer, Actions, ActionRemove, ActionQuantidy } from './styles';
 import { Trash, Plus, Minus } from "phosphor-react";
-import { NewProductData, ProductsContext } from '../../../../contexts/CartContext';
+import { ProductsContext } from '../../../../contexts/CartContext';
 import { useContext, useState } from 'react';
+import { IProductCart } from '../../../../interfaces/IProductCart';
 
-export function Card({id, name, price, image, amount}: NewProductData) {
+export function Card({id, name, price, image, amount}: IProductCart) {
     const { handleDeletedProductToCart, handleAmountProductToCart } = useContext(ProductsContext);
     const [itemAmount, setItemAmount] = useState<number>(1);
 

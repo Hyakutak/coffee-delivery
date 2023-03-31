@@ -1,4 +1,4 @@
-import { NewProductData, userInfoAddress } from '../../contexts/CartContext';
+import { IProductCart } from '../../interfaces/IProductCart';
 
 export enum ActionTypes {
 	ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART',
@@ -10,7 +10,7 @@ export enum ActionTypes {
 	CHANGE_COMPLEMENT_ADDRESS_USER = 'CHANGE_COMPLEMENT_ADDRESS_USER'
 }
 
-export function addNewProductToCartAction(product: NewProductData) {
+export function addNewProductToCartAction(product: IProductCart) {
 	return {
 		type: ActionTypes.ADD_PRODUCT_TO_CART,
 		payload: {
@@ -38,35 +38,8 @@ export function changeAmountProductToCartAction(id: number, amount: number) {
 	}
 }
 
-export function addUserAddressInfoAction(userInfo: userInfoAddress) {
-	return {
-		type: ActionTypes.ADD_USER_INFO,
-		payload: {
-			userInfo,
-		}
-	}
-}
-
 export function finishOrderAction() {
 	return {
 		type: ActionTypes.FINISH_ORDER,
 	};
-}
-
-export function changeNumberAddressUser(num: number) {
-	return {
-		type: ActionTypes.CHANGE_NUMBER_ADDRESS_USER,
-		payload: {
-			num
-		}
-	}
-}
-
-export function changeComplementAddressUser(complement: string) {
-	return {
-		type: ActionTypes.CHANGE_COMPLEMENT_ADDRESS_USER,
-		payload: {
-			complement
-		}
-	}
 }

@@ -6,13 +6,16 @@ import { MapPin, ShoppingCart } from "phosphor-react";
 import LogoCoffeeDelivery from "../../assets/logo-coffee-delivery.svg";
 import { NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { NewProductData, ProductsContext } from "../../contexts/CartContext";
+import { ProductsContext } from "../../contexts/CartContext";
+import { UserContext } from "../../contexts/UserContext";
+import { IProductCart } from "../../interfaces/IProductCart";
 
 export function Header() {
-    const { products, userInfo } = useContext(ProductsContext);
+    const { userAddress } = useContext(UserContext);
+    const { products } = useContext(ProductsContext);
 
     const totalProductsInCart = products.reduce<number>(
-        (value: number, currentProduct: NewProductData) => currentProduct.amount ? ++value : value, 0
+        (value: number, currentProduct: IProductCart) => currentProduct.amount ? ++value : value, 0
     );
 
     return (
@@ -23,7 +26,7 @@ export function Header() {
             <HeaderContainerActions>
                 <HeaderContainerAction backgroundVariant={'purple-light'} variantIcon={'purple'} variantText={'purple-dark'}>
                     <MapPin size={22} weight="fill" />
-                    <span>{userInfo.localidade != undefined ? `${userInfo.localidade}, ${userInfo.uf}` : 'São Paulo, SP'}</span>
+                    <span>{userAddress.localidade != undefined ? `${userAddress.localidade}, ${userAddress.uf}` : 'São Paulo, SP'}</span>
                 </HeaderContainerAction>
                 <HeaderContainerAction backgroundVariant={'yellow-light'} variantIcon={'yellow'} variantText={'yellow-dark'}>
                     <NavLink to="/checkout" title="Checkout">

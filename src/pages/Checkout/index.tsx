@@ -4,6 +4,7 @@ import * as zod from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProductsContext } from '../../contexts/CartContext';
+import { UserContext } from  '../../contexts/UserContext';
 import { FormAddress } from './components/FormAddress';
 import { PaymentMethods } from './components/PaymentMethods';
 import { convertNumerToPrice } from '../../utils/formatPriceMoney';
@@ -17,7 +18,8 @@ const newCompleteOrderFormSchema = zod.object({
 export type NewCompleteOrderData = zod.infer<typeof newCompleteOrderFormSchema>;
 
 export function Checkout() {
-    const { products, handleFinishOrder, formPayment, numberAddress, userInfo } = useContext(ProductsContext);
+    const { products, handleFinishOrder, formPayment } = useContext(ProductsContext);
+    const { userAddress, numberAddress } = useContext(UserContext);
     const navigate = useNavigate();
 
     const totalProducts = products.reduce((value, product) => value + (product.price * product.amount), 0);
@@ -42,7 +44,7 @@ export function Checkout() {
 
     function handleFinishOrderAction(event: FormEvent) {
         event.preventDefault();
-        if(formPayment && numberAddress && userInfo.cep) {
+        if(formPayment && numberAddress && userAddress.cep) {
             handleFinishOrder();
             navigate('/checkout/success');
         }

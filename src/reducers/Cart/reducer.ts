@@ -1,12 +1,10 @@
 import { ActionTypes } from "./actions";
-import { NewProductData, userInfoAddress } from "../../contexts/CartContext";
+import { IProductCart } from "../../interfaces/IProductCart";
 import produce from "immer";
 
-export interface IProductsInCart {
-    products: NewProductData[];
-	userInfo: userInfoAddress;
-	numberAddress: 0;
-	complementUser: ''
+
+interface IProductsInCart {
+    products: IProductCart[];
 }
 
 export function ProductsReducer(state: IProductsInCart, action: any) {
@@ -48,27 +46,9 @@ export function ProductsReducer(state: IProductsInCart, action: any) {
 			});
 		}
 
-		case ActionTypes.ADD_USER_INFO: {
-			return produce(state, (draft) => {
-				draft.userInfo = action.payload.userInfo;
-			});
-		}
-
 		case ActionTypes.FINISH_ORDER: {
 			return produce(state, (draft) => {
 				draft.products.splice(0, draft.products.length);
-			});
-		}
-
-		case ActionTypes.CHANGE_NUMBER_ADDRESS_USER: {
-			return produce(state, (draft) => {
-				draft.numberAddress = action.payload.num;
-			});
-		}
-
-		case ActionTypes.CHANGE_COMPLEMENT_ADDRESS_USER: {
-			return produce(state, (draft) => {
-				draft.complementUser = action.payload.complement;
 			});
 		}
 

@@ -3,9 +3,11 @@ import { ProductsContext } from '../../contexts/CartContext';
 import { SuccessContainer, SuccessContent, SuccessInfo, SuccessInfoDelivy } from './styles';
 import Delivery from '../../assets/Illustration.svg';
 import { MapPin, Timer, CurrencyDollar } from "phosphor-react";
+import { UserContext } from '../../contexts/UserContext';
 
 export function CheckoutSuccess() {
-    const {  userInfo, formPayment, numberAddress } = useContext(ProductsContext);
+    const {  formPayment } = useContext(ProductsContext);
+    const {  userAddress, numberAddress } = useContext(UserContext);
 
     return (
         <SuccessContainer>
@@ -18,8 +20,8 @@ export function CheckoutSuccess() {
                     <SuccessInfo color='purple'>
                         <MapPin size={32} weight="fill" />
                         <div>
-                            <span>Entrega em <SuccessInfoDelivy>{userInfo.logradouro}, {numberAddress}</SuccessInfoDelivy></span>
-                            <span>{userInfo.bairro} - {userInfo.localidade}, {userInfo.uf}</span>
+                            <span>Entrega em <SuccessInfoDelivy>{userAddress.logradouro}, {numberAddress}</SuccessInfoDelivy></span>
+                            <span>{userAddress.bairro} - {userAddress.localidade}, {userAddress.uf}</span>
                         </div>
                     </SuccessInfo>
                     <SuccessInfo color='yellow'>
