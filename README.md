@@ -1,13 +1,13 @@
 # Coffee Delivery ☕️
 
 <p align="center">
-  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/hyakutak/coffe-delivery">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/hyakutak/coffee-delivery">
 
-  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/hyakutak/coffe-delivery">
+  <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/hyakutak/coffee-delivery">
 
-  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/hyakuta/coffe-delivery">
+  <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/hyakutak/coffee-delivery">
 
-  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/hyakuta/coffe-delivery">
+  <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/hyakutak/coffee-delivery">
 </p>
 
 ## 🚀 Technologies
@@ -30,7 +30,7 @@
 
 ```bash
 # Clone the repository
-$ git clone https://github.com/hyakutak/coffe-delivery.git
+$ git clone https://github.com/Hyakutak/coffee-delivery
 # Go into the directory
 $ cd coffe-delivery
 # Install the dependencies
