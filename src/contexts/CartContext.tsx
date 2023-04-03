@@ -5,28 +5,26 @@ import { addNewProductToCartAction,
          changeAmountProductToCartAction,
          finishOrderAction } from "../reducers/Cart/actions";
 import { IProductCart } from "../interfaces/IProductCart";
-
-interface ProductsContextType {
-    products: IProductCart[];
-    formPayment: string;
-    handleAddProductToCart: (product: IProductCart) => void;
-    handleDeletedProductToCart: (id: number) => void;
-    handleAmountProductToCart: (id: number, amount: number) => void;
-    handleFinishOrder: () => void;
-    handleClickModifiedFormPayment: (method: string) => void;
-}
+import { ICartContextType } from "../interfaces/ICartContext";
 
 interface ProductsContextProviderProps {
     children: ReactNode
 }
 
-export const ProductsContext = createContext({} as ProductsContextType);
+const cartEmpty: ICartContextType = {
+    products: [],
+    formPayment: '',
+    handleAddProductToCart: () => {},
+    handleDeletedProductToCart: () => {},
+    handleAmountProductToCart: () => {},
+    handleFinishOrder: () => {},
+    handleClickModifiedFormPayment: () => {}
+}
+
+export const ProductsContext = createContext<ICartContextType>(cartEmpty);
 
 export function ProductsContextProvider({ children }: ProductsContextProviderProps) {
-    const [cartState, dispatch] = useReducer(ProductsReducer,
-        { 
-            products: [],
-        },
+    const [cartState, dispatch] = useReducer(ProductsReducer, cartEmpty,
         (initialState) => {
             const storedStateAsJSON = localStorage.getItem('@coffee-delivery:cart-state-1.0.0');
             if(storedStateAsJSON) return JSON.parse(storedStateAsJSON);
@@ -40,7 +38,7 @@ export function ProductsContextProvider({ children }: ProductsContextProviderPro
         localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON);
     }, [cartState]);
 
-    const { products} = cartState;
+    const { products } = cartState;
 
     function handleAddProductToCart(data: IProductCart) {
         const newProduct = { ...data }

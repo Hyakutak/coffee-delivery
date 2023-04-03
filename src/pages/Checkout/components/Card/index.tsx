@@ -1,30 +1,36 @@
 import { CardContent, CardContainer, Actions, ActionRemove, ActionQuantidy } from './styles';
 import { Trash, Plus, Minus } from "phosphor-react";
-import { ProductsContext } from '../../../../contexts/CartContext';
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { IProductCart } from '../../../../interfaces/IProductCart';
+import { convertNumerToPrice } from '../../../../utils/formatPriceMoney';
 
-export function Card({id, name, price, image, amount}: IProductCart) {
-    const { handleDeletedProductToCart, handleAmountProductToCart } = useContext(ProductsContext);
+interface ProductItemProps {
+    productCart: IProductCart,
+    changeAmountCartItem: (id: number, amount: number) => void, 
+    deletedCartItem: (id: number) => void, 
+}
+
+export function Card({productCart, changeAmountCartItem, deletedCartItem}: ProductItemProps) {
+    const {id, name, image, price, amount} = productCart;
     const [itemAmount, setItemAmount] = useState<number>(1);
 
     function sendProductToCart() {
-		handleDeletedProductToCart(id);
+		deletedCartItem(id);
 	}
 
     function incrementProductToCart() {
-        handleAmountProductToCart(id, amount + 1)
+        changeAmountCartItem(id, amount + 1)
     }
 
     function decrementProductToCart() {
-        handleAmountProductToCart(id, amount - 1)
+        changeAmountCartItem(id, amount - 1)
     }
 
     return (
         <CardContent>
             <CardContainer>
                 <header>
-                    <img src={ image } alt={name} />
+                    <img src={ image } alt={`Foto do produto - Café ${name}`} />
                     <section>
                         <h2>{ name }</h2>
                         <Actions>
@@ -40,7 +46,7 @@ export function Card({id, name, price, image, amount}: IProductCart) {
                         </Actions>
                     </section>
                 </header>
-                <span>R$ { price.toLocaleString('pt-BR', {minimumFractionDigits: 2,maximumFractionDigits: 2})}</span>
+                <span>R$ { convertNumerToPrice(price)}</span>
             </CardContainer>
             <hr />
         </CardContent>

@@ -18,7 +18,7 @@ const newCompleteOrderFormSchema = zod.object({
 export type NewCompleteOrderData = zod.infer<typeof newCompleteOrderFormSchema>;
 
 export function Checkout() {
-    const { products, handleFinishOrder, formPayment } = useContext(ProductsContext);
+    const { products, handleFinishOrder, formPayment, handleAmountProductToCart, handleDeletedProductToCart } = useContext(ProductsContext);
     const { userAddress, numberAddress } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export function Checkout() {
     const formattedTotalPriceProducts = convertNumerToPrice(totalPriceProducts);
 
     const ProductsToCart = products ? products.map((product) => 
-        (<Card key={product.id} {...product} />)) 
+        (<Card key={product.id} productCart={product} changeAmountCartItem={handleAmountProductToCart} deletedCartItem={handleDeletedProductToCart} />)) 
         : <></>
 
     const newOrderForm = useForm<NewCompleteOrderData>({
