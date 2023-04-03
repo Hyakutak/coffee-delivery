@@ -11,11 +11,11 @@ export const ContainerProducts = styled.article`
 
 export const GridProducts = styled.section`
     display: grid;
-    grid: '1fr 1fr 1fr 1fr';
+    grid-template-columns: repeat(4, 1fr);
     flex-wrap: wrap;
     gap: 2rem;
     ${mobile(css`
-        grid: '1fr';
+        grid-template-columns: repeat(1, 1fr);
     `)};
 `;
 
