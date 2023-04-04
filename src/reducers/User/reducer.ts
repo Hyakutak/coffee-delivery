@@ -19,13 +19,13 @@ export function UserReducer(state: IUserReducer, action: any) {
 
 		case ActionTypesUser.CHANGE_NUMBER_ADDRESS_USER: {
 			return produce(state, (draft) => {
-				draft.numberAddress = action.payload.num;
+				draft.userAddress.numero = action.payload.num;
 			});
 		}
 
 		case ActionTypesUser.CHANGE_COMPLEMENT_ADDRESS_USER: {
 			return produce(state, (draft) => {
-				draft.complementUser = action.payload.complement;
+				draft.userAddress.complemento = action.payload.complement;
 			});
 		}
 

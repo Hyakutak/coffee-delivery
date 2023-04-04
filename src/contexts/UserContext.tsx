@@ -7,7 +7,6 @@ import { IUserInfo } from "../interfaces/IUser";
 
 interface userContextType {
     userAddress: IUserInfo,
-    numberAddress: number,
     handleAddAddressUser: (user: IUserInfo) => void,
     handleChangeNumberAddress: (num: number) => void,
     handleChangeComplementAddress: (complement: string) => void;
@@ -22,9 +21,7 @@ export const UserContext = createContext({} as userContextType);
 export function UserContextProvider({ children }: userContextProviderProps) {
     const [userState, dispatch] = useReducer(UserReducer, 
         {
-            userAddress: {},
-            numberAddress: 0,
-            complementUser: ''
+            userAddress: {}
         },
         (initialState) => {
             const storedStateAsJSON = localStorage.getItem('@coffee-delivery:user-state-1.0.0');
@@ -38,7 +35,7 @@ export function UserContextProvider({ children }: userContextProviderProps) {
         localStorage.setItem('@coffee-delivery:cart-state-1.0.0', stateJSON);
     }, [userState]);
 
-    const { userAddress, numberAddress } = userState;
+    const { userAddress } = userState;
 
     function handleAddAddressUser(data: IUserInfo) {
         const InfoAddress = { ...data }
@@ -56,7 +53,6 @@ export function UserContextProvider({ children }: userContextProviderProps) {
     return (
         <UserContext.Provider value={{
             userAddress,
-            numberAddress,
             handleAddAddressUser,
             handleChangeNumberAddress,
             handleChangeComplementAddress

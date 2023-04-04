@@ -7,7 +7,7 @@ import { UserContext } from '../../contexts/UserContext';
 
 export function CheckoutSuccess() {
     const {  formPayment } = useContext(ProductsContext);
-    const {  userAddress, numberAddress } = useContext(UserContext);
+    const {  userAddress } = useContext(UserContext);
 
     return (
         <SuccessContainer>
@@ -20,7 +20,7 @@ export function CheckoutSuccess() {
                     <SuccessInfo color='purple'>
                         <MapPin size={32} weight="fill" />
                         <div>
-                            <span>Entrega em <SuccessInfoDelivy>{userAddress.logradouro}, {numberAddress}</SuccessInfoDelivy></span>
+                            <span>Entrega em <SuccessInfoDelivy>{userAddress.logradouro}, {userAddress.numero}</SuccessInfoDelivy></span>
                             <span>{userAddress.bairro} - {userAddress.localidade}, {userAddress.uf}</span>
                         </div>
                     </SuccessInfo>

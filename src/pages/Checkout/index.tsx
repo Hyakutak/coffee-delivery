@@ -19,7 +19,7 @@ export type NewCompleteOrderData = zod.infer<typeof newCompleteOrderFormSchema>;
 
 export function Checkout() {
     const { products, handleFinishOrder, formPayment, handleAmountProductToCart, handleDeletedProductToCart } = useContext(ProductsContext);
-    const { userAddress, numberAddress } = useContext(UserContext);
+    const { userAddress } = useContext(UserContext);
     const navigate = useNavigate();
 
     const totalProducts = products.reduce((value, product) => value + (product.price * product.amount), 0);
@@ -44,7 +44,7 @@ export function Checkout() {
 
     function handleFinishOrderAction(event: FormEvent) {
         event.preventDefault();
-        if(formPayment && numberAddress && userAddress.cep) {
+        if(formPayment && userAddress.numero && userAddress.cep) {
             handleFinishOrder();
             navigate('/checkout/success');
         }

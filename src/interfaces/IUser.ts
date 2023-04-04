@@ -4,4 +4,6 @@ export interface IUserInfo {
     bairro: string,
     localidade: string,
     uf: string,
+    numero?: number,
+    complemento?: string
 }
