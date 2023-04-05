@@ -1,5 +1,5 @@
 export interface IUserInfo {
-    cep: number,
+    cep: string,
     logradouro: string,
     bairro: string,
     localidade: string,

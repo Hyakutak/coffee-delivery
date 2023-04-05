@@ -1,37 +1,45 @@
-import { useEffect, ChangeEvent, useContext } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useEffect, ChangeEvent, useContext, useState } from 'react';
 import { ContainerForm, InputContainer } from './styles';
 import { urlsApis } from '../../../../utils/urlsApi';
 import { UserContext } from '../../../../contexts/UserContext';
 import { MapPinLine } from 'phosphor-react';
 import Api from '../../../../services/Api';
 import InputMask from 'react-input-mask';
+import { IUserInfo } from '../../../../interfaces/IUser';
 
 export function FormAddress() {
     
     const { userAddress, handleAddAddressUser, handleChangeNumberAddress, handleChangeComplementAddress } = useContext(UserContext)
-    const { register, watch } = useFormContext();
+    const [cepUser, setCepUser] = useState(userAddress?.cep || '');
 
-    const cep = watch('CEP');
-    const isCepValid = /^[0-9]{5}-[0-9]{3}$/.test(cep);
+    const isCepValid = /^[0-9]{5}-[0-9]{3}$/.test(cepUser);
 
-    const logradouroUser = userAddress.logradouro ? userAddress.logradouro : '';
-    const bairroUser = userAddress.bairro ? userAddress.bairro : '';
-    const localidadeUser = userAddress.localidade ? userAddress.localidade : '';
-    const ufUser = userAddress.uf ? userAddress.uf : '';
+    const logradouroUser = userAddress.logradouro && userAddress.logradouro;
+    const bairroUser = userAddress.bairro && userAddress.bairro;
+    const localidadeUser = userAddress.localidade && userAddress.localidade;
+    const ufUser = userAddress.uf && userAddress.uf;
 
     useEffect(() => {
         if(isCepValid) {
-            Api
-             .get(`${urlsApis.viaCepUrl}/${cep}/json`)
-             .then((response) => {
-                handleAddAddressUser(response.data);
-             })
-             .catch((err) => {
-                console.error("ops! ocorreu um erro" + err);
-             });
+            fetchAddressForUser();
         }
-    }, [watch('CEP')]);
+    }, [cepUser]);
+
+    async function fetchAddressForUser() {
+        try {
+            const response = await Api.get(`${urlsApis.viaCepUrl}/${cepUser}/json`);
+            const dataUser: IUserInfo = {
+                cep: response.data.cep,
+                logradouro: response.data.logradouro,
+                bairro: response.data.bairro,
+                localidade: response.data.localidade,
+                uf: response.data.uf,
+            }
+            handleAddAddressUser(dataUser);
+        } catch (err) {
+            console.error("ops! ocorreu um erro não foi possivel buscar o cep!" + err);
+        }
+    }
 
 
     function changeInputNumber(event: ChangeEvent<HTMLInputElement>) {
@@ -57,7 +65,9 @@ export function FormAddress() {
                         type="text" 
                         placeholder='CEP'
                         mask="99999-999"
-                        {...register('CEP')} />
+                        value={cepUser}
+                        onChange={(event: ChangeEvent<HTMLInputElement>) => setCepUser(event.target.value)}
+                        onBlur={fetchAddressForUser} />
                 </InputContainer>
                 <InputContainer>
                     <input 
@@ -71,10 +81,12 @@ export function FormAddress() {
                         style={{ maxWidth: "min(200px, 100%)" }} 
                         type="number" 
                         placeholder='Número' 
+                        value={userAddress.numero}
                         onChange={changeInputNumber} />
                     <input 
                         type="text" 
                         placeholder='Complemento' 
+                        value={userAddress.complemento}
                         onChange={changeInputComplement} />
                 </InputContainer>
                 <InputContainer>
